@@ -1,0 +1,3535 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CYBERWACHO — Visual Artist & 3D Generalist</title>
+<meta name="description" content="Cyberwacho — 3D generalist & visual artist. Animación cinemática, VFX, dirección visual. +5 años freelance.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,400;9..144,500;9..144,700;9..144,900&family=JetBrains+Mono:wght@300;400;500&family=Inter:wght@300;400;500;600&family=Press+Start+2P&display=swap" rel="stylesheet">
+<style>
+/* ============================================
+   CYBERWACHO — visual artist portfolio
+   aesthetic: organic metaball / iridescent / museum-grade
+   ============================================ */
+
+:root {
+  --bg: #050505;
+  --bg-2: #0a0a0c;
+  --ink: #efeae3;
+  --ink-2: #b8b2a8;
+  --ink-3: #6a655e;
+  --line: rgba(239,234,227,0.08);
+  --line-2: rgba(239,234,227,0.16);
+
+  /* iridescent palette from the reference gifs */
+  --rose: #c98a9b;
+  --lilac: #a39ec9;
+  --teal: #6fb3b0;
+  --citrus: #c4c87a;
+  --amber: #d9a878;
+  --deep: #2a3550;
+
+  --logo: 'Fraunces', serif;
+  --display: 'Inter', sans-serif;
+  --body: 'Inter', sans-serif;
+  --mono: 'JetBrains Mono', monospace;
+  --pixel: 'Press Start 2P', monospace;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+html, body {
+  background: var(--bg);
+  color: var(--ink);
+  font-family: var(--body);
+  font-weight: 300;
+  line-height: 1.5;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+
+::selection { background: var(--rose); color: var(--bg); }
+
+/* ============================================
+   ORGANIC BACKGROUND (canvas metaballs)
+   ============================================ */
+#bg-canvas {
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+  pointer-events: none;
+  opacity: 0.55;
+}
+
+/* subtle film grain over everything */
+.grain {
+  position: fixed;
+  inset: 0;
+  z-index: 2;
+  pointer-events: none;
+  opacity: 0.06;
+  mix-blend-mode: overlay;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='200' height='200'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/></filter><rect width='100%' height='100%' filter='url(%23n)' opacity='0.6'/></svg>");
+}
+
+/* soft vignette */
+.vignette {
+  position: fixed;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  background: radial-gradient(ellipse at center, transparent 40%, rgba(0,0,0,0.55) 100%);
+}
+
+/* every section sits above the bg */
+header, section, footer { position: relative; z-index: 3; }
+
+/* ============================================
+   NAV
+   ============================================ */
+.nav {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 22px 36px;
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--ink-2);
+  background: linear-gradient(180deg, rgba(5,5,5,0.55) 0%, transparent 100%);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border-bottom: 1px solid var(--line);
+  pointer-events: none;
+}
+.nav > * { pointer-events: auto; }
+.nav-mark {
+  font-family: var(--display);
+  font-weight: 500;
+  font-size: 14px;
+  letter-spacing: 0.04em;
+  color: var(--ink);
+  text-transform: none;
+  font-style: italic;
+}
+.nav-mark span { color: var(--rose); }
+.nav-links { display: flex; gap: 28px; }
+.nav-links a {
+  color: var(--ink-2);
+  text-decoration: none;
+  transition: color 0.3s ease;
+  position: relative;
+}
+.nav-links a:hover { color: var(--ink); }
+.nav-links a::after {
+  content: '';
+  position: absolute;
+  left: 0; bottom: -4px;
+  width: 0; height: 1px;
+  background: var(--rose);
+  transition: width 0.4s cubic-bezier(.2,.8,.2,1);
+}
+.nav-links a:hover::after { width: 100%; }
+
+/* Language switch */
+.lang-switch {
+  display: flex;
+  gap: 4px;
+  margin-left: 16px;
+  padding-left: 16px;
+  border-left: 1px solid var(--line-2);
+}
+.lang-btn {
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 0.1em;
+  background: transparent;
+  border: 1px solid transparent;
+  color: var(--ink-3);
+  padding: 4px 8px;
+  cursor: pointer;
+  border-radius: 2px;
+  transition: all 0.3s ease;
+}
+.lang-btn:hover { color: var(--ink); }
+.lang-btn.active { color: var(--rose); border-color: var(--rose); }
+
+@media (max-width: 720px) {
+  .lang-switch { margin-left: 8px; padding-left: 8px; }
+  .lang-btn { font-size: 9px; padding: 3px 5px; }
+}
+@media (max-width: 720px) {
+  .nav { padding: 16px 20px; }
+  .nav-links { gap: 16px; font-size: 10px; }
+  .nav-links a:nth-child(n+4) { display: none; }
+}
+
+/* ============================================
+   HERO — sculptural lettering
+   ============================================ */
+.hero {
+  min-height: 100vh;
+  padding: 120px 36px 60px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  max-width: 1400px;
+  margin: 0 auto;
+  position: relative;
+}
+
+.hero-flex {
+  display: flex;
+  align-items: center;
+  gap: 40px;
+  flex-wrap: wrap;
+}
+.hero-text { flex: 1 1 60%; min-width: 0; }
+
+/* Floating Cyberwacho character */
+.hero-character {
+  position: relative;
+  flex: 0 0 auto;
+  width: clamp(180px, 26vw, 360px);
+  aspect-ratio: 3 / 4;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: clamp(0px, 4vw, 60px);
+}
+.character-img {
+  position: relative;
+  width: 100%;
+  height: auto;
+  z-index: 2;
+  /* PNG already has transparent background — no blend mode needed */
+  filter:
+    drop-shadow(0 0 14px rgba(34, 211, 238, 0.55))
+    drop-shadow(0 0 28px rgba(34, 211, 238, 0.35))
+    drop-shadow(0 0 50px rgba(125, 211, 252, 0.25));
+  animation: charFloat 5.5s ease-in-out infinite;
+  transition: transform 0.3s ease;
+  will-change: transform;
+}
+.character-glow {
+  position: absolute;
+  inset: -8% -12%;
+  background: radial-gradient(circle at center, rgba(34, 211, 238, 0.22) 0%, rgba(34, 211, 238, 0.1) 38%, transparent 72%);
+  filter: blur(22px);
+  animation: glowPulse 4s ease-in-out infinite;
+  z-index: 1;
+  pointer-events: none;
+}
+@keyframes charFloat {
+  0%, 100% { transform: translateY(0) rotate(-1.5deg); }
+  50%      { transform: translateY(-20px) rotate(1.5deg); }
+}
+@keyframes glowPulse {
+  0%, 100% { opacity: 0.7; transform: scale(1); }
+  50%      { opacity: 1; transform: scale(1.07); }
+}
+
+/* Dialog bubble — sits BESIDE the character's head, not above */
+.dialog-bubble {
+  position: absolute;
+  top: 6%;
+  right: -56%;
+  z-index: 4;
+  background: linear-gradient(135deg, #fff, #f3e8ff);
+  color: #1a0a2e;
+  padding: 12px 15px;
+  border-radius: 14px;
+  font-family: var(--pixel);
+  font-size: 9px;
+  line-height: 1.7;
+  letter-spacing: 0;
+  width: max-content;
+  max-width: 200px;
+  box-shadow:
+    0 0 20px rgba(34, 211, 238, 0.4),
+    0 8px 24px rgba(0,0,0,0.4);
+  border: 2px solid #22d3ee;
+  animation: bubblePop 0.4s ease-out, bubbleFloat 4s ease-in-out infinite 0.4s;
+  opacity: 0;
+  animation-fill-mode: forwards;
+}
+/* tail points LEFT toward the head */
+.bubble-tail {
+  position: absolute;
+  bottom: 18px;
+  left: -9px;
+  width: 16px;
+  height: 16px;
+  background: linear-gradient(135deg, #fff, #f3e8ff);
+  border-left: 2px solid #22d3ee;
+  border-bottom: 2px solid #22d3ee;
+  transform: rotate(45deg);
+}
+@keyframes bubblePop {
+  0%   { opacity: 0; transform: scale(0.5) translateX(-20px); }
+  60%  { opacity: 1; transform: scale(1.08) translateX(4px); }
+  100% { opacity: 1; transform: scale(1) translateX(0); }
+}
+@keyframes bubbleFloat {
+  0%, 100% { transform: translateY(0); }
+  50%      { transform: translateY(-6px); }
+}
+.dialog-bubble.hidden { opacity: 0; pointer-events: none; transition: opacity 0.3s ease; }
+
+@media (max-width: 1100px) {
+  .dialog-bubble { right: -30%; max-width: 170px; }
+}
+@media (max-width: 820px) {
+  .hero-flex { flex-direction: column; align-items: flex-start; }
+  .hero-character {
+    align-self: center;
+    margin: 30px auto 20px;
+    width: clamp(170px, 52vw, 280px);
+  }
+  .dialog-bubble {
+    font-size: 8px;
+    max-width: 150px;
+    right: auto;
+    left: 84%;
+    top: 4%;
+  }
+}
+@media (max-width: 480px) {
+  .dialog-bubble { left: auto; right: -10%; max-width: 130px; font-size: 7px; }
+}
+
+.eyebrow {
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.24em;
+  color: var(--ink-3);
+  text-transform: uppercase;
+  margin-bottom: 32px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.eyebrow::before {
+  content: '';
+  width: 32px;
+  height: 1px;
+  background: var(--ink-3);
+}
+
+/* the CYBERWACHO lettering — single line, editorial serif */
+.title-lockup {
+  font-family: var(--logo);
+  font-weight: 300;
+  font-size: clamp(64px, 14vw, 220px);
+  line-height: 0.88;
+  letter-spacing: -0.04em;
+  color: var(--ink);
+  font-variation-settings: 'opsz' 144, 'SOFT' 50;
+  margin-bottom: 24px;
+}
+.title-lockup .word {
+  display: block;
+  position: relative;
+}
+.title-lockup .l {
+  display: inline-block;
+  transition: transform 0.6s cubic-bezier(.2,.8,.2,1),
+              color 0.5s ease,
+              font-variation-settings 0.5s ease;
+  will-change: transform;
+}
+.title-lockup .l.glow {
+  color: var(--rose);
+  font-style: italic;
+  font-variation-settings: 'opsz' 144, 'SOFT' 100;
+}
+.title-lockup em {
+  font-style: italic;
+  font-weight: 400;
+  color: var(--ink-2);
+  letter-spacing: -0.02em;
+}
+
+.hero-meta {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 60px;
+  margin-top: 48px;
+  padding-top: 32px;
+  border-top: 1px solid var(--line);
+  align-items: end;
+}
+.hero-statement {
+  font-family: var(--display);
+  font-weight: 300;
+  font-style: italic;
+  font-size: clamp(18px, 2.2vw, 28px);
+  line-height: 1.35;
+  color: var(--ink);
+  max-width: 640px;
+  letter-spacing: -0.01em;
+}
+.hero-statement span { color: var(--ink-3); font-style: normal; }
+.hero-info {
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  color: var(--ink-2);
+  line-height: 1.9;
+  text-align: right;
+}
+.hero-info .label { color: var(--ink-3); text-transform: uppercase; letter-spacing: 0.18em; font-size: 10px; }
+.hero-info .val { color: var(--ink); }
+
+@media (max-width: 720px) {
+  .hero { padding: 96px 20px 48px; }
+  .hero-meta { grid-template-columns: 1fr; gap: 28px; }
+  .hero-info { text-align: left; }
+}
+
+/* scroll cue */
+.scroll-cue {
+  position: absolute;
+  bottom: 32px;
+  left: 36px;
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 0.2em;
+  color: var(--ink-3);
+  text-transform: uppercase;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  animation: floatY 3s ease-in-out infinite;
+}
+.scroll-cue::after {
+  content: '';
+  width: 1px;
+  height: 32px;
+  background: linear-gradient(180deg, var(--ink-3), transparent);
+}
+@keyframes floatY {
+  0%,100% { transform: translateY(0); opacity: 0.6; }
+  50% { transform: translateY(6px); opacity: 1; }
+}
+@media (max-width: 720px) { .scroll-cue { left: 20px; bottom: 20px; } }
+
+/* ============================================
+   SECTION SCAFFOLD
+   ============================================ */
+section.block {
+  padding: 120px 36px;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+@media (max-width: 720px) { section.block { padding: 80px 20px; } }
+
+/* dark overlay behind text-heavy sections so the metaballs don't compete with reading */
+section.block.dim {
+  position: relative;
+}
+section.block.dim::before {
+  content: '';
+  position: absolute;
+  inset: -40px -10vw;
+  background: radial-gradient(ellipse at center, rgba(5,5,7,0.78) 0%, rgba(5,5,7,0.55) 50%, rgba(5,5,7,0) 90%);
+  pointer-events: none;
+  z-index: -1;
+}
+
+.sec-label {
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.24em;
+  color: var(--ink-3);
+  text-transform: uppercase;
+  margin-bottom: 28px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+.sec-label::before {
+  content: '';
+  width: 28px;
+  height: 1px;
+  background: var(--ink-3);
+}
+.sec-label .num { color: var(--rose); }
+
+.sec-title {
+  font-family: var(--display);
+  font-weight: 300;
+  font-size: clamp(36px, 5vw, 64px);
+  line-height: 1.05;
+  letter-spacing: -0.02em;
+  color: var(--ink);
+  margin-bottom: 56px;
+  max-width: 900px;
+}
+.sec-title em { font-style: italic; color: var(--ink-2); font-weight: 400; }
+
+/* ============================================
+   ABOUT — information dossier
+   ============================================ */
+.about-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 80px;
+  align-items: start;
+}
+@media (max-width: 880px) { .about-grid { grid-template-columns: 1fr; gap: 48px; } }
+
+.about-prose p {
+  font-size: 17px;
+  line-height: 1.65;
+  color: var(--ink-2);
+  margin-bottom: 20px;
+  font-weight: 300;
+}
+.about-prose p:first-child {
+  font-family: var(--display);
+  font-size: 22px;
+  line-height: 1.4;
+  font-style: italic;
+  color: var(--ink);
+  font-weight: 300;
+}
+.about-prose p::first-letter {
+  /* drop cap only on first paragraph styled separately below */
+}
+.about-prose strong { color: var(--ink); font-weight: 500; }
+
+.dossier {
+  border-left: 1px solid var(--line);
+  padding-left: 32px;
+}
+.dossier-row {
+  padding: 18px 0;
+  border-bottom: 1px solid var(--line);
+  display: grid;
+  grid-template-columns: 110px 1fr;
+  gap: 24px;
+  font-family: var(--mono);
+  font-size: 12px;
+}
+.dossier-row .k {
+  color: var(--ink-3);
+  text-transform: uppercase;
+  letter-spacing: 0.16em;
+  font-size: 10px;
+}
+.dossier-row .v {
+  color: var(--ink);
+  letter-spacing: 0.04em;
+}
+.dossier-row .v.muted { color: var(--ink-2); }
+
+/* discipline pills */
+.disciplines {
+  margin-top: 40px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.disc {
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  color: var(--ink-2);
+  padding: 8px 14px;
+  border: 1px solid var(--line-2);
+  border-radius: 999px;
+  transition: all 0.4s ease;
+  background: rgba(255,255,255,0.01);
+}
+.disc:hover {
+  color: var(--ink);
+  border-color: var(--rose);
+  background: rgba(201,138,155,0.08);
+  transform: translateY(-1px);
+}
+
+/* ============================================
+   WORKS — modern art gallery
+   ============================================ */
+.works-grid {
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  gap: 28px;
+  row-gap: 80px;
+}
+@media (max-width: 880px) { .works-grid { gap: 20px; row-gap: 56px; } }
+
+.work {
+  position: relative;
+  cursor: pointer;
+  display: block;
+  text-decoration: none;
+  color: inherit;
+  overflow: hidden;
+}
+
+/* asymmetric grid spans — gallery wall composition */
+.work.w-lg { grid-column: span 8; }
+.work.w-md { grid-column: span 6; }
+.work.w-sm { grid-column: span 4; }
+.work.w-tall { grid-column: span 5; }
+.work.w-wide { grid-column: span 7; }
+
+@media (max-width: 880px) {
+  .work.w-lg, .work.w-md, .work.w-sm, .work.w-tall, .work.w-wide {
+    grid-column: span 12;
+  }
+}
+
+.work-frame {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  overflow: hidden;
+  background: #0a0a0c;
+  border: 1px solid var(--line);
+  transition: border-color 0.5s ease;
+}
+.work.w-tall .work-frame { aspect-ratio: 3 / 4; }
+.work.w-wide .work-frame { aspect-ratio: 16 / 9; }
+.work.w-lg .work-frame { aspect-ratio: 16 / 10; }
+
+.work-frame > * {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+.work-thumb {
+  object-fit: cover;
+  display: block;
+  transition: transform 1.2s cubic-bezier(.2,.8,.2,1), filter 0.6s ease;
+  border: 0;
+  filter: grayscale(0.05) contrast(1.04) brightness(0.95);
+  z-index: 2;
+}
+.work:hover .work-frame { border-color: var(--line-2); }
+.work:hover .work-thumb { transform: scale(1.04); filter: grayscale(0) contrast(1.08) brightness(1.05); }
+
+.platform-badge {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  z-index: 5;
+  font-family: var(--mono);
+  font-size: 9px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--ink);
+  background: rgba(5, 5, 7, 0.75);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  padding: 5px 10px;
+  border-radius: 2px;
+  border: 1px solid rgba(255,255,255,0.12);
+  opacity: 0;
+  transform: translateY(-6px);
+  transition: opacity 0.4s ease, transform 0.4s ease;
+  pointer-events: none;
+}
+.work:hover .platform-badge { opacity: 1; transform: translateY(0); }
+
+/* Coming-soon card — Blender class */
+.work-soon .work-frame {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background:
+    linear-gradient(135deg, rgba(217,168,120,0.12), rgba(163,158,201,0.12)),
+    var(--bg);
+  border-style: dashed;
+  border-color: var(--line-2);
+}
+.soon-content {
+  position: relative;
+  z-index: 3;
+  text-align: center;
+  padding: 32px;
+  max-width: 460px;
+}
+.soon-badge {
+  display: inline-block;
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--bg);
+  background: var(--amber);
+  padding: 6px 14px;
+  border-radius: 2px;
+  margin-bottom: 18px;
+  animation: soonPulse 2.4s ease-in-out infinite;
+}
+@keyframes soonPulse {
+  0%,100% { opacity: 1; }
+  50%     { opacity: 0.6; }
+}
+.soon-title {
+  font-family: var(--logo);
+  font-weight: 300;
+  font-size: clamp(22px, 3vw, 34px);
+  line-height: 1.15;
+  color: var(--ink);
+  margin-bottom: 12px;
+}
+.soon-sub {
+  font-size: 13px;
+  color: var(--ink-3);
+  line-height: 1.6;
+}
+.work-soon:hover .work-frame { border-color: var(--amber); }
+
+.work-frame .ph {
+  background-color: #0a0a0c;
+  background-size: cover;
+  background-position: center;
+  z-index: 1;
+  display: block;
+}
+.work-frame .ph::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='200' height='200'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2'/></filter><rect width='100%' height='100%' filter='url(%23n)' opacity='0.4'/></svg>");
+  opacity: 0.4;
+  mix-blend-mode: overlay;
+}
+.play {
+  position: absolute;
+  left: 50%; top: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 3;
+  width: 64px; height: 64px;
+  border-radius: 50%;
+  background: rgba(10,10,12,0.55);
+  border: 1px solid var(--ink);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  display: flex; align-items: center; justify-content: center;
+  transition: all 0.4s ease;
+  inset: auto;
+  width: 64px; height: 64px;
+  pointer-events: none;
+}
+.work:hover .play { background: var(--ink); transform: translate(-50%,-50%) scale(1.08); }
+.play::before {
+  content: '';
+  width: 0; height: 0;
+  border-left: 14px solid var(--ink);
+  border-top: 9px solid transparent;
+  border-bottom: 9px solid transparent;
+  margin-left: 4px;
+  transition: border-left-color 0.4s ease;
+}
+.work:hover .play::before { border-left-color: var(--bg); }
+
+.work-caption {
+  padding-top: 18px;
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 16px;
+  align-items: baseline;
+}
+.work-caption h3 {
+  font-family: var(--display);
+  font-weight: 400;
+  font-size: 19px;
+  letter-spacing: -0.01em;
+  color: var(--ink);
+  line-height: 1.25;
+}
+.work-caption h3 em { color: var(--ink-2); font-style: italic; font-weight: 300; }
+.work-caption .meta {
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--ink-3);
+  white-space: nowrap;
+}
+.work-desc {
+  margin-top: 8px;
+  font-size: 13px;
+  color: var(--ink-2);
+  line-height: 1.55;
+  font-weight: 300;
+  max-width: 480px;
+}
+.work-views {
+  display: inline-block;
+  margin-top: 10px;
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--rose);
+  border-bottom: 1px solid var(--rose);
+  padding-bottom: 2px;
+}
+
+/* multi-link row (for Retro Cartoons) */
+.work-links {
+  margin-top: 12px;
+  display: flex;
+  gap: 14px;
+  flex-wrap: wrap;
+}
+.work-links a {
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--ink-2);
+  text-decoration: none;
+  border-bottom: 1px solid var(--line-2);
+  padding-bottom: 3px;
+  transition: all 0.3s ease;
+}
+.work-links a:hover { color: var(--ink); border-color: var(--ink); }
+
+/* lightbox (modal video player) */
+.lightbox {
+  position: fixed;
+  inset: 0;
+  z-index: 200;
+  background: rgba(5,5,5,0.92);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  display: none;
+  align-items: center;
+  justify-content: center;
+  padding: 40px;
+}
+.lightbox.open { display: flex; }
+.lightbox-inner {
+  width: 100%;
+  max-width: 1100px;
+  aspect-ratio: 16 / 9;
+  position: relative;
+}
+.lightbox iframe, .lightbox video {
+  width: 100%; height: 100%;
+  border: 0;
+  background: #000;
+}
+.lightbox-close {
+  position: absolute;
+  top: -42px; right: 0;
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--ink);
+  background: transparent;
+  border: 1px solid var(--line-2);
+  padding: 8px 14px;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+.lightbox-close:hover { border-color: var(--ink); }
+.lightbox-caption {
+  position: absolute;
+  bottom: -42px; left: 0;
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--ink-2);
+}
+
+/* ============================================
+   DISCOUNT GAME — chrome metallic, repainted
+   ============================================ */
+.game-wrap {
+  text-align: center;
+}
+.game-intro {
+  font-family: var(--display);
+  font-size: clamp(18px, 2vw, 22px);
+  font-style: italic;
+  font-weight: 300;
+  color: var(--ink-2);
+  margin-bottom: 36px;
+  max-width: 620px;
+  margin-left: auto;
+  margin-right: auto;
+  line-height: 1.5;
+}
+.game-intro b { color: var(--rose); font-style: normal; font-weight: 500; }
+
+#game-stage {
+  position: relative;
+  max-width: 1100px;
+  width: 100%;
+  margin: 0 auto;
+  border: 1px solid var(--line-2);
+  border-radius: 8px;
+  overflow: hidden;
+  background: linear-gradient(180deg, #1a0a2e 0%, #2d1b4e 100%);
+  box-shadow:
+    0 30px 60px -20px rgba(0,0,0,0.8),
+    inset 0 1px 0 rgba(255,255,255,0.04);
+  aspect-ratio: 16 / 9;
+}
+#game-hud {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 14px 20px;
+  font-family: var(--pixel);
+  font-size: 11px;
+  color: #fff;
+  background: rgba(26,10,46,0.85);
+  border-bottom: 1px solid rgba(139,92,246,0.3);
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  z-index: 30;
+  pointer-events: none;
+  letter-spacing: 0;
+  text-transform: none;
+}
+@media (max-width: 600px) { #game-hud { font-size: 8px; padding: 10px 12px; } }
+#game-hud .hp { color: #fbbf24; }
+#gameCanvas {
+  display: block;
+  width: 100%;
+  height: 100%;
+  background: transparent;
+  image-rendering: pixelated;
+  image-rendering: -moz-crisp-edges;
+  image-rendering: crisp-edges;
+}
+#game-overlay {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  background: rgba(26,10,46,0.92);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  padding: 40px 24px;
+  gap: 18px;
+  z-index: 40;
+}
+#game-overlay.hidden { display: none; }
+#game-overlay h2 {
+  font-family: var(--pixel);
+  font-weight: 400;
+  font-style: normal;
+  font-size: clamp(11px, 2.4vw, 20px);
+  letter-spacing: 0;
+  color: #fbbf24;
+  text-shadow: 3px 3px 0 #7c3aed, 6px 6px 0 #1a0a2e;
+  line-height: 1.6;
+}
+#game-overlay p {
+  font-family: var(--pixel);
+  font-size: clamp(8px, 1.6vw, 11px);
+  color: #e5e7eb;
+  max-width: 480px;
+  line-height: 2;
+  letter-spacing: 0;
+}
+#game-overlay p b { color: #fbbf24; font-weight: 400; }
+
+.btn-pixel {
+  font-family: var(--pixel);
+  font-size: 11px;
+  background: #fbbf24;
+  color: #1a0a2e;
+  border: none;
+  border-radius: 8px;
+  padding: 16px 28px;
+  cursor: pointer;
+  letter-spacing: 0;
+  text-transform: none;
+  box-shadow: 0 4px 0 #b45309, 0 8px 16px rgba(251,191,36,0.4);
+  transition: transform 0.1s, box-shadow 0.1s;
+}
+.btn-pixel:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 0 #b45309, 0 12px 24px rgba(251,191,36,0.5);
+}
+.btn-pixel:active {
+  transform: translateY(2px);
+  box-shadow: 0 2px 0 #b45309;
+}
+
+.btn {
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--ink);
+  background: transparent;
+  border: 1px solid var(--ink);
+  padding: 14px 28px;
+  cursor: pointer;
+  transition: all 0.4s cubic-bezier(.2,.8,.2,1);
+  position: relative;
+  overflow: hidden;
+}
+.btn:hover {
+  background: var(--ink);
+  color: var(--bg);
+  letter-spacing: 0.24em;
+}
+.btn.primary {
+  background: var(--rose);
+  border-color: var(--rose);
+  color: var(--bg);
+}
+.btn.primary:hover {
+  background: var(--ink);
+  border-color: var(--ink);
+}
+.btn.ghost {
+  border-color: var(--line-2);
+  color: var(--ink-2);
+}
+.btn.ghost:hover { border-color: var(--ink); color: var(--ink); background: transparent; }
+
+/* Game controls — joystick + jump button, always visible */
+#game-controls {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  max-width: 1100px;
+  margin: 20px auto 0;
+  padding: 0 10px;
+}
+/* Joystick */
+#joystick-zone {
+  position: relative;
+  width: 130px;
+  height: 130px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(139,92,246,0.15), rgba(26,10,46,0.4));
+  border: 2px solid var(--line-2);
+  touch-action: none;
+  user-select: none;
+  -webkit-user-select: none;
+  flex-shrink: 0;
+}
+#joystick-knob {
+  position: absolute;
+  top: 50%; left: 50%;
+  width: 56px;
+  height: 56px;
+  margin: -28px 0 0 -28px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 35% 35%, #a78bfa, #6d28d9);
+  border: 2px solid #c4b5fd;
+  box-shadow: 0 4px 16px rgba(109,40,217,0.6);
+  transition: transform 0.05s ease-out;
+  pointer-events: none;
+}
+#joystick-zone .joy-hint {
+  position: absolute;
+  bottom: -26px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-family: var(--mono);
+  font-size: 9px;
+  letter-spacing: 0.15em;
+  color: var(--ink-3);
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+/* Jump button */
+#jump-btn {
+  width: 130px;
+  height: 130px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 35% 35%, #fde68a, #f59e0b);
+  border: 3px solid #fef3c7;
+  color: #1a0a2e;
+  font-family: var(--pixel);
+  font-size: 13px;
+  cursor: pointer;
+  touch-action: none;
+  user-select: none;
+  -webkit-user-select: none;
+  box-shadow: 0 6px 0 #b45309, 0 10px 24px rgba(251,191,36,0.5);
+  transition: transform 0.08s, box-shadow 0.08s;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+#jump-btn:active, #jump-btn.pressed {
+  transform: translateY(4px);
+  box-shadow: 0 2px 0 #b45309, 0 4px 12px rgba(251,191,36,0.4);
+}
+@media (max-width: 600px) {
+  #joystick-zone, #jump-btn { width: 104px; height: 104px; }
+  #joystick-knob { width: 46px; height: 46px; margin: -23px 0 0 -23px; }
+  #jump-btn { font-size: 11px; }
+}
+
+/* Win overlay (full screen pixel-art celebration) */
+#win-overlay {
+  display: none;
+  position: fixed; inset: 0; z-index: 9000;
+  background: radial-gradient(ellipse at center, rgba(139,92,246,0.97) 0%, rgba(26,10,46,0.99) 100%);
+  flex-direction: column; align-items: center; justify-content: center;
+  gap: 20px;
+  padding: 24px;
+}
+#win-overlay.active { display: flex; }
+#win-overlay h1 {
+  font-family: var(--pixel);
+  font-size: clamp(14px, 3vw, 28px);
+  color: #fbbf24;
+  text-shadow: 4px 4px 0 #ec4899, 8px 8px 0 #06b6d4;
+  text-align: center;
+  letter-spacing: 0;
+  animation: winPulse 0.5s ease-in-out infinite alternate;
+}
+@keyframes winPulse {
+  from { transform: scale(1); }
+  to { transform: scale(1.05); }
+}
+#trophy-card {
+  background: linear-gradient(135deg, #fbbf24, #f59e0b);
+  border-radius: 20px;
+  padding: 24px 40px;
+  text-align: center;
+  border: 4px solid #fde68a;
+  box-shadow: 0 0 40px rgba(251,191,36,0.6);
+  font-family: var(--pixel);
+}
+#trophy-card .trophy-icon {
+  font-size: 48px; display: block; margin-bottom: 12px;
+}
+#trophy-card h2 {
+  font-family: var(--pixel);
+  font-size: clamp(8px, 2vw, 12px);
+  color: #1a0a2e; margin-bottom: 8px;
+  letter-spacing: 0;
+}
+#trophy-card .discount {
+  font-family: var(--pixel);
+  font-size: clamp(20px, 5vw, 40px);
+  color: #1a0a2e;
+  text-shadow: 2px 2px 0 rgba(0,0,0,0.2);
+}
+.star-burst {
+  position: absolute;
+  font-size: 24px;
+  animation: starFloat 2s ease-in-out infinite;
+  pointer-events: none;
+}
+@keyframes starFloat {
+  0%,100% { transform: translateY(0) rotate(0deg); }
+  50% { transform: translateY(-20px) rotate(180deg); }
+}
+.victory-cat {
+  width: clamp(140px, 30vw, 240px);
+  height: auto;
+  border-radius: 16px;
+  border: 4px solid #fbbf24;
+  box-shadow: 0 0 60px rgba(251,191,36,0.7), 0 20px 40px rgba(0,0,0,0.6);
+  animation: catSpin 0.6s ease-out, catBob 3s ease-in-out infinite 0.6s;
+}
+@keyframes catSpin {
+  0%   { transform: rotate(0deg) scale(0); opacity: 0; }
+  60%  { transform: rotate(380deg) scale(1.15); opacity: 1; }
+  100% { transform: rotate(360deg) scale(1); opacity: 1; }
+}
+@keyframes catBob {
+  0%,100% { transform: rotate(360deg) translateY(0); }
+  50%     { transform: rotate(360deg) translateY(-10px); }
+}
+
+/* trophy modal */
+.trophy {
+  position: fixed;
+  inset: 0;
+  z-index: 250;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  background: rgba(5,5,5,0.92);
+  backdrop-filter: blur(20px);
+  padding: 24px;
+}
+.trophy.open { display: flex; }
+.trophy-card {
+  max-width: 460px;
+  text-align: center;
+  padding: 48px 36px;
+  border: 1px solid var(--line-2);
+  background: linear-gradient(180deg, rgba(20,19,26,0.9), rgba(10,10,12,0.95));
+}
+.trophy-card .chip {
+  display: inline-block;
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  color: var(--rose);
+  border: 1px solid var(--rose);
+  padding: 6px 12px;
+  margin-bottom: 24px;
+}
+.trophy-card h3 {
+  font-family: var(--display);
+  font-weight: 300;
+  font-style: italic;
+  font-size: 36px;
+  letter-spacing: -0.02em;
+  margin-bottom: 14px;
+}
+.trophy-card p {
+  font-size: 14px;
+  color: var(--ink-2);
+  margin-bottom: 28px;
+}
+
+/* ============================================
+   CONTACT — request form
+   ============================================ */
+.contact-grid {
+  display: grid;
+  grid-template-columns: 1fr 1.2fr;
+  gap: 80px;
+  align-items: start;
+}
+@media (max-width: 880px) { .contact-grid { grid-template-columns: 1fr; gap: 48px; } }
+
+.contact-left .lede {
+  font-family: var(--display);
+  font-weight: 300;
+  font-style: italic;
+  font-size: clamp(22px, 2.4vw, 30px);
+  line-height: 1.35;
+  color: var(--ink);
+  margin-bottom: 28px;
+}
+.contact-left .lede em { color: var(--rose); font-style: normal; }
+.contact-left .note {
+  font-size: 14px;
+  color: var(--ink-2);
+  line-height: 1.65;
+  margin-bottom: 32px;
+}
+
+.contact-left .direct {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  font-family: var(--mono);
+  font-size: 12px;
+}
+.contact-left .direct a {
+  color: var(--ink);
+  text-decoration: none;
+  letter-spacing: 0.04em;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 4px 0;
+  transition: color 0.3s;
+}
+.contact-left .direct a:hover { color: var(--rose); }
+.contact-left .direct .lbl { color: var(--ink-3); text-transform: uppercase; letter-spacing: 0.18em; font-size: 10px; min-width: 80px; display: inline-block; }
+
+/* How-it-works numbered steps */
+.how-steps {
+  list-style: none;
+  margin: 0 0 32px;
+  padding: 0;
+  counter-reset: step;
+}
+.how-steps li {
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+  margin-bottom: 16px;
+  font-size: 14px;
+  line-height: 1.55;
+  color: var(--ink-2);
+}
+.how-steps .step-n {
+  flex-shrink: 0;
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  background: var(--rose);
+  color: var(--bg);
+  font-family: var(--mono);
+  font-size: 12px;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.form {
+  border: 1px solid var(--line-2);
+  padding: 36px;
+  background: rgba(10,10,12,0.5);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+}
+@media (max-width: 720px) { .form { padding: 24px; } }
+.field { margin-bottom: 28px; }
+.field-label {
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--ink-3);
+  margin-bottom: 12px;
+  display: block;
+}
+.field-label .n { color: var(--rose); margin-right: 8px; }
+
+.pills { display: flex; flex-wrap: wrap; gap: 8px; }
+.pill {
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.06em;
+  color: var(--ink-2);
+  padding: 10px 16px;
+  border: 1px solid var(--line-2);
+  border-radius: 2px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  background: transparent;
+  user-select: none;
+}
+.pill:hover { color: var(--ink); border-color: var(--ink-2); }
+.pill.on {
+  color: var(--bg);
+  background: var(--ink);
+  border-color: var(--ink);
+}
+
+textarea {
+  width: 100%;
+  min-height: 120px;
+  background: rgba(0,0,0,0.3);
+  border: 1px solid var(--line-2);
+  color: var(--ink);
+  padding: 16px;
+  font-family: var(--body);
+  font-size: 14px;
+  font-weight: 300;
+  line-height: 1.5;
+  resize: vertical;
+  transition: border-color 0.3s;
+  outline: none;
+}
+textarea:focus { border-color: var(--rose); }
+textarea::placeholder { color: var(--ink-3); }
+
+input[type="text"], input[type="email"] {
+  width: 100%;
+  background: rgba(0,0,0,0.3);
+  border: 1px solid var(--line-2);
+  color: var(--ink);
+  padding: 14px 16px;
+  font-family: var(--body);
+  font-size: 14px;
+  font-weight: 300;
+  line-height: 1.4;
+  transition: border-color 0.3s;
+  outline: none;
+}
+input[type="text"]:focus, input[type="email"]:focus { border-color: var(--rose); }
+input::placeholder { color: var(--ink-3); }
+
+.field-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  margin-bottom: 24px;
+}
+@media (max-width: 600px) { .field-row { grid-template-columns: 1fr; } }
+.req { color: var(--rose); margin-left: 4px; }
+
+.form-actions {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+#ticket {
+  margin-top: 28px;
+  padding: 24px;
+  border: 1px dashed var(--line-2);
+  background: rgba(0,0,0,0.3);
+  font-family: var(--mono);
+  font-size: 12px;
+  line-height: 1.7;
+  color: var(--ink-2);
+  white-space: pre-wrap;
+  display: none;
+}
+#ticket.show { display: block; animation: fadeUp 0.5s ease both; }
+#ticket .head {
+  font-family: var(--display);
+  font-style: italic;
+  font-size: 18px;
+  color: var(--ink);
+  margin-bottom: 12px;
+  font-weight: 300;
+}
+#ticket .disc-tag {
+  display: inline-block;
+  margin-top: 12px;
+  font-size: 10px;
+  letter-spacing: 0.2em;
+  color: var(--rose);
+  border: 1px solid var(--rose);
+  padding: 6px 10px;
+  text-transform: uppercase;
+}
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(12px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ============================================
+   FOOTER
+   ============================================ */
+footer {
+  padding: 60px 36px 40px;
+  border-top: 1px solid var(--line);
+  margin-top: 80px;
+}
+.footer-inner {
+  max-width: 1400px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 24px;
+  align-items: end;
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  color: var(--ink-3);
+}
+.footer-mark {
+  font-family: var(--display);
+  font-weight: 300;
+  font-style: italic;
+  font-size: 36px;
+  letter-spacing: -0.02em;
+  color: var(--ink);
+}
+.footer-mark span { color: var(--rose); }
+@media (max-width: 720px) {
+  footer { padding: 48px 20px 32px; }
+  .footer-inner { grid-template-columns: 1fr; gap: 20px; }
+}
+
+/* reveal on scroll */
+.reveal { opacity: 0; transform: translateY(24px); transition: opacity 0.9s ease, transform 0.9s cubic-bezier(.2,.8,.2,1); }
+.reveal.in { opacity: 1; transform: none; }
+
+</style>
+</head>
+<body>
+
+<!-- organic metaball background -->
+<canvas id="bg-canvas"></canvas>
+<div class="vignette"></div>
+<div class="grain"></div>
+
+<!-- nav -->
+<nav class="nav">
+  <a class="nav-mark" href="#top">cyber<span>·</span>wacho</a>
+  <div class="nav-links">
+    <a href="#work" data-i18n="nav.work">Work</a>
+    <a href="#about" data-i18n="nav.about">About</a>
+    <a href="#game" data-i18n="nav.play">Play</a>
+    <a href="#contact" data-i18n="nav.contact">Contact</a>
+    <div class="lang-switch">
+      <button class="lang-btn active" data-lang="es">ES</button>
+      <button class="lang-btn" data-lang="en">EN</button>
+      <button class="lang-btn" data-lang="pt">PT</button>
+      <button class="lang-btn" data-lang="jp">日本</button>
+    </div>
+  </div>
+</nav>
+
+<!-- ════════ HERO ════════ -->
+<header class="hero" id="top">
+  <div class="hero-flex">
+    <div class="hero-text">
+      <div class="eyebrow" data-i18n="hero.eyebrow">Independent Studio &nbsp;·&nbsp; Est. 2020</div>
+
+      <h1 class="title-lockup" id="titleLockup">
+        <span class="word" data-word="CYBER"></span>
+        <span class="word" data-word="WACHO"></span>
+      </h1>
+    </div>
+
+    <!-- Floating Cyberwacho character + dialog bubble -->
+    <div class="hero-character">
+      <div class="dialog-bubble" id="dialogBubble">
+        <span id="dialogText" data-i18n="dialog.0">¡Hay cupos disponibles este mes!</span>
+        <div class="bubble-tail"></div>
+      </div>
+      <div class="character-glow"></div>
+      <img src="assets/cyberwacho_character.png" alt="Cyberwacho character" class="character-img" id="characterImg">
+    </div>
+  </div>
+
+  <div class="hero-meta">
+    <p class="hero-statement" data-i18n="hero.statement">
+      Imágenes 3D con narrativa, atmósfera y dirección. <span data-i18n="hero.statement.sub">— Animación cinemática, VFX y mundos visuales para artistas, marcas y proyectos que no se conforman.</span>
+    </p>
+    <div class="hero-info">
+      <div><span class="label" data-i18n="hero.based">Based</span></div>
+      <div><span class="val">Argentina · Remote</span></div>
+      <div style="margin-top:14px"><span class="label" data-i18n="hero.worked">Worked with</span></div>
+      <div><span class="val">LATAM · USA · JAPAN · CANADA</span></div>
+      <div style="margin-top:14px"><span class="label" data-i18n="hero.status">Status</span></div>
+      <div><span class="val" data-i18n="hero.statusVal">Open for commissions</span></div>
+    </div>
+  </div>
+
+  <div class="scroll-cue" data-i18n="hero.scroll">Scroll</div>
+</header>
+
+<!-- ════════ ABOUT ════════ -->
+<section class="block reveal dim" id="about">
+  <div class="sec-label"><span class="num">01</span> <span data-i18n="about.label">About</span></div>
+  <h2 class="sec-title" data-i18n="about.title">Cinco años haciendo imágenes que <em>se sostienen solas</em>. Diseño, animación y dirección visual para música, marcas y mundos propios.</h2>
+
+  <div class="about-grid">
+    <div class="about-prose">
+      <p data-i18n="about.p1">Diseñador 3D generalista. Trabajo en la intersección entre animación, dirección visual y narrativa. Lo que busco en cada proyecto es lo mismo: una imagen que tenga peso, una atmósfera específica, una decisión clara detrás de cada plano.</p>
+      <p data-i18n="about.p2">Vengo de hacer videoclips, identidades visuales en movimiento, secuencias para artistas musicales y campañas. He colaborado con proyectos de LATAM, Estados Unidos, Japón y Canadá.</p>
+    </div>
+
+    <aside class="dossier">
+      <div class="dossier-row"><div class="k" data-i18n="dossier.rol">Rol</div><div class="v">3D Generalist · Visual Artist</div></div>
+      <div class="dossier-row"><div class="k" data-i18n="dossier.software">Software</div><div class="v">Blender · After Effects</div></div>
+      <div class="dossier-row"><div class="k" data-i18n="dossier.services">Servicios</div><div class="v muted" data-i18n="dossier.servicesVal">Videoclips · Anuncios · Mundos 3D · VFX · Dirección creativa</div></div>
+      <div class="dossier-row"><div class="k" data-i18n="dossier.year">Año</div><div class="v" data-i18n="dossier.yearVal">5+ freelance</div></div>
+      <div class="dossier-row"><div class="k" data-i18n="dossier.langs">Idiomas</div><div class="v">ES · EN · PT · JP</div></div>
+
+      <div class="disciplines">
+        <span class="disc">Camera Animation</span>
+        <span class="disc">Lighting</span>
+        <span class="disc">Environments</span>
+        <span class="disc">Characters</span>
+        <span class="disc">VFX</span>
+        <span class="disc">Motion Design</span>
+        <span class="disc">Hardsurface</span>
+        <span class="disc">Particle Sim</span>
+      </div>
+    </aside>
+  </div>
+</section>
+
+<!-- ════════ WORKS GALLERY ════════ -->
+<section class="block reveal dim" id="work">
+  <div class="sec-label"><span class="num">02</span> Selected Work</div>
+  <h2 class="sec-title">Una <em>exposición</em> en movimiento. Diez piezas elegidas entre cinco años de trabajo.</h2>
+
+  <div class="works-grid" id="worksGrid">
+    <!-- works rendered by JS -->
+  </div>
+</section>
+
+<!-- ════════ GAME ════════ -->
+<section class="block reveal dim" id="game">
+  <div class="sec-label"><span class="num">03</span> Bonus Round</div>
+  <h2 class="sec-title">★ Super Cyberwacho Bros ★ <em>Llegá a la bandera y ganá un 15% de descuento.</em></h2>
+
+  <div class="game-wrap">
+    <p class="game-intro" data-i18n="game.intro">Usá el joystick para moverte y el botón para saltar. Esquivá meteoros y enemigos, y tocá la bandera al final para ganar tu <b>15% OFF</b>.</p>
+
+    <div id="game-stage">
+      <div id="game-hud">
+        <span id="scoreDisplay">SCORE: 0</span>
+        <span style="opacity:0.7" data-i18n="game.hud">JOYSTICK · SALTAR</span>
+        <span class="hp" id="livesDisplay">☄</span>
+      </div>
+      <canvas id="gameCanvas" width="1280" height="720"></canvas>
+      <div id="game-overlay">
+        <h2>SUPER CYBERWACHO BROS</h2>
+        <p data-i18n="game.overlay">Llegá a la bandera para ganar <b>15% OFF</b><br><br>☄ Esquivá meteoros y enemigos<br>Joystick para mover · Botón para saltar</p>
+        <button class="btn-pixel" onclick="game.start()" data-i18n="game.play">▶ JUGAR</button>
+      </div>
+    </div>
+
+    <div id="game-controls">
+      <div id="joystick-zone">
+        <div id="joystick-knob"></div>
+        <span class="joy-hint" data-i18n="game.move">Mover</span>
+      </div>
+      <button id="jump-btn" data-i18n="game.jump">SALTAR</button>
+    </div>
+  </div>
+</section>
+
+<!-- Win overlay (full screen pixel celebration) -->
+<div id="win-overlay">
+  <div class="star-burst" style="top:15%;left:10%;animation-delay:0s">⭐</div>
+  <div class="star-burst" style="top:15%;right:12%;animation-delay:0.5s">🌟</div>
+  <div class="star-burst" style="bottom:20%;left:15%;animation-delay:1s">✨</div>
+  <div class="star-burst" style="bottom:25%;right:10%;animation-delay:1.5s">⭐</div>
+  <img src="assets/cat.jpg" alt="Victory cat" class="victory-cat">
+  <h1 data-i18n="win.title">¡GANASTE! 🎉</h1>
+  <div id="trophy-card">
+    <span class="trophy-icon">🏆</span>
+    <h2 data-i18n="win.unlock">15% OFF DESBLOQUEADO</h2>
+    <div class="discount">15% OFF</div>
+    <p style="font-family:var(--pixel); font-size:8px; color:#1a0a2e; margin-top:12px; line-height:1.8" data-i18n="win.use">Usalo en el formulario de abajo</p>
+  </div>
+  <button class="btn-pixel" onclick="closeWinOverlay()" data-i18n="win.claim">▶ RECLAMAR</button>
+</div>
+
+<!-- trophy -->
+<div class="trophy" id="trophy">
+  <div class="trophy-card">
+    <span class="chip">⬢ Achievement unlocked</span>
+    <h3>Llegaste al portal.</h3>
+    <p>Tu próximo encargo lleva <b style="color:var(--rose)">15% OFF</b>. El cupón se agrega automáticamente al ticket cuando lo envíes.</p>
+    <button class="btn primary" onclick="closeTrophy()">Reclamar descuento</button>
+  </div>
+</div>
+
+<!-- ════════ CONTACT ════════ -->
+<section class="block reveal dim" id="contact">
+  <div class="sec-label"><span class="num">04</span> <span data-i18n="contact.label">Contact</span></div>
+  <h2 class="sec-title" data-i18n="contact.title">Decime qué idea tenés. <em>De manera simple completá el siguiente formulario.</em></h2>
+
+  <div class="contact-grid">
+    <div class="contact-left">
+      <p class="lede" data-i18n="contact.intro">Llená los datos, elegí el estilo y contame tu idea. Te genero un ticket con todo y lo enviás directo a mi Instagram.</p>
+
+      <ol class="how-steps">
+        <li><span class="step-n">1</span><span data-i18n="how.1">Completá tu nombre, país y elegí las opciones de tu video.</span></li>
+        <li><span class="step-n">2</span><span data-i18n="how.2">Apretá "Generar ticket" — se crea una imagen con tu pedido.</span></li>
+        <li><span class="step-n">3</span><span data-i18n="how.3">Apretá "Enviar solicitud": copio el mensaje y abro mi chat de Instagram.</span></li>
+        <li><span class="step-n">4</span><span data-i18n="how.4">En el chat, mantené presionado y elegí "Pegar". Mandá el mensaje y listo.</span></li>
+      </ol>
+
+      <div class="direct">
+        <a href="https://www.instagram.com/cyberwacho" target="_blank" rel="noopener"><span class="lbl">Instagram</span> @cyberwacho</a>
+      </div>
+    </div>
+
+    <form class="form" id="reqForm" onsubmit="return false;">
+
+      <!-- Personal info -->
+      <div class="field-row">
+        <div class="field">
+          <label class="field-label"><span class="n">·</span><span data-i18n="form.name">Nombre</span> <span class="req">*</span></label>
+          <input type="text" id="userName" data-i18n-ph="form.namePh" placeholder="¿Cómo te llamás?" required>
+        </div>
+        <div class="field">
+          <label class="field-label"><span class="n">·</span><span data-i18n="form.country">País</span> <span class="req">*</span></label>
+          <input type="text" id="userCountry" data-i18n-ph="form.countryPh" placeholder="¿Desde dónde escribís?" required>
+        </div>
+      </div>
+      <div class="field">
+        <label class="field-label"><span class="n">·</span><span data-i18n="form.email">Email (opcional)</span></label>
+        <input type="email" id="userEmail" data-i18n-ph="form.emailPh" placeholder="tu@email.com">
+      </div>
+
+      <div class="field">
+        <label class="field-label"><span class="n">01</span><span data-i18n="form.chars">Personajes</span></label>
+        <div class="pills" data-group="chars">
+          <div class="pill" data-v="Un personaje">Un personaje</div>
+          <div class="pill" data-v="Más de uno">Más de uno</div>
+          <div class="pill" data-v="Sin personaje">Sin personaje</div>
+        </div>
+      </div>
+
+      <div class="field">
+        <label class="field-label"><span class="n">02</span><span data-i18n="form.style">Estilo</span></label>
+        <div class="pills" data-group="style">
+          <div class="pill" data-v="Cartoon">Cartoon</div>
+          <div class="pill" data-v="Realista">Realista</div>
+          <div class="pill" data-v="Cartoon realista">Cartoon realista</div>
+          <div class="pill" data-v="Lowpoly">Lowpoly</div>
+          <div class="pill" data-v="VFX">VFX</div>
+          <div class="pill" data-v="Otra cosa">Otra cosa</div>
+        </div>
+      </div>
+
+      <div class="field">
+        <label class="field-label"><span class="n">03</span><span data-i18n="form.dur">Duración</span></label>
+        <div class="pills" data-group="dur">
+          <div class="pill" data-v="Loop 30s">Loop 30s</div>
+          <div class="pill" data-v="1 minuto">1 minuto</div>
+          <div class="pill" data-v="Una canción">Una canción</div>
+          <div class="pill" data-v="Otra duración">Otra duración</div>
+        </div>
+      </div>
+
+      <div class="field">
+        <label class="field-label"><span class="n">04</span><span data-i18n="form.idea">Tu idea</span></label>
+        <textarea id="idea" data-i18n-ph="form.ideaPh" placeholder="Contame brevemente qué imaginás. Referencias, mood, mensaje..."></textarea>
+      </div>
+
+      <div class="form-actions">
+        <button type="button" class="btn primary" onclick="generateTicket()" data-i18n="form.generate">Generar ticket</button>
+        <button type="button" class="btn ghost" id="sendBtn" onclick="sendTicket()" disabled style="opacity:0.4;cursor:not-allowed" data-i18n="form.send">Enviar solicitud →</button>
+      </div>
+
+      <!-- Ticket image will be generated and shown here -->
+      <div id="ticketPreview" style="display:none">
+        <canvas id="ticketCanvas" width="900" height="1200" style="display:none"></canvas>
+        <img id="ticketImage" alt="Ticket" style="max-width:100%;border-radius:8px;box-shadow:0 20px 60px rgba(0,0,0,0.6);margin-top:24px">
+        <p style="margin-top:14px;font-size:12px;color:var(--ink-3);text-align:center;font-family:var(--mono)">
+          <span id="ticketCopiedMsg" data-i18n="ticket.copied">✓ Texto copiado al portapapeles</span>
+        </p>
+      </div>
+    </form>
+  </div>
+</section>
+
+<!-- ════════ FOOTER ════════ -->
+<footer>
+  <div class="footer-inner">
+    <div>
+      <div class="footer-mark">cyber<span>·</span>wacho</div>
+      <div style="margin-top:10px">© 2026 — All works, all rights reserved.</div>
+    </div>
+    <div style="text-align:right">
+      <div>3D Generalist · Visual Artist</div>
+      <div style="margin-top:6px">Built with Blender, code & a lot of stubbornness.</div>
+    </div>
+  </div>
+</footer>
+
+<!-- ============================================
+     JS — kept all in one file
+     ============================================ -->
+<script>
+/* ============================================
+   0a. Sound system — 8-bit synthesized sounds (no audio files needed)
+   ============================================ */
+const sfx = (function(){
+  let ctx = null;
+  function ensureCtx(){
+    if (!ctx) {
+      try { ctx = new (window.AudioContext || window.webkitAudioContext)(); }
+      catch(e){ return null; }
+    }
+    if (ctx.state === 'suspended') ctx.resume();
+    return ctx;
+  }
+  function tone(freq, duration, type='square', volume=0.15, startAt=0){
+    const c = ensureCtx(); if (!c) return;
+    const osc = c.createOscillator();
+    const gain = c.createGain();
+    osc.type = type;
+    osc.frequency.setValueAtTime(freq, c.currentTime + startAt);
+    gain.gain.setValueAtTime(0, c.currentTime + startAt);
+    gain.gain.linearRampToValueAtTime(volume, c.currentTime + startAt + 0.01);
+    gain.gain.exponentialRampToValueAtTime(0.0001, c.currentTime + startAt + duration);
+    osc.connect(gain); gain.connect(c.destination);
+    osc.start(c.currentTime + startAt);
+    osc.stop(c.currentTime + startAt + duration + 0.05);
+  }
+  function sweep(f1, f2, duration, type='square', volume=0.15){
+    const c = ensureCtx(); if (!c) return;
+    const osc = c.createOscillator();
+    const gain = c.createGain();
+    osc.type = type;
+    osc.frequency.setValueAtTime(f1, c.currentTime);
+    osc.frequency.exponentialRampToValueAtTime(f2, c.currentTime + duration);
+    gain.gain.setValueAtTime(volume, c.currentTime);
+    gain.gain.exponentialRampToValueAtTime(0.0001, c.currentTime + duration);
+    osc.connect(gain); gain.connect(c.destination);
+    osc.start();
+    osc.stop(c.currentTime + duration + 0.05);
+  }
+  return {
+    jump:    () => sweep(380, 720, 0.12, 'square', 0.12),
+    die:     () => { sweep(440, 110, 0.45, 'sawtooth', 0.15); setTimeout(()=>sweep(220, 55, 0.35, 'sawtooth', 0.12), 200); },
+    win:     () => {
+      // victory fanfare ~2 seconds
+      tone(523, 0.12, 'square', 0.13, 0);     // C5
+      tone(659, 0.12, 'square', 0.13, 0.12);  // E5
+      tone(784, 0.12, 'square', 0.13, 0.24);  // G5
+      tone(1047, 0.25, 'square', 0.15, 0.36); // C6
+      tone(784, 0.10, 'square', 0.10, 0.65);
+      tone(1047, 0.35, 'square', 0.18, 0.78); // C6 long
+      tone(1319, 0.45, 'square', 0.15, 1.0);  // E6 final
+    },
+    ticket:  () => { tone(880, 0.08, 'sine', 0.18, 0); tone(1320, 0.18, 'sine', 0.20, 0.08); },
+  };
+})();
+function playSound(name){ try { sfx[name] && sfx[name](); } catch(e){} }
+
+/* ============================================
+   0b. i18n — multi-language strings (ES, EN, PT, JP)
+   ============================================ */
+const I18N = {
+  es: {
+    'nav.work':'Trabajos','nav.about':'Sobre mí','nav.play':'Jugar','nav.contact':'Contacto',
+    'hero.eyebrow':'Estudio Independiente · Est. 2020',
+    'hero.statement':'Imágenes 3D con narrativa, atmósfera y dirección.',
+    'hero.statement.sub':'— Animación cinemática, VFX y mundos visuales para artistas, marcas y proyectos que no se conforman.',
+    'hero.based':'Ubicación','hero.worked':'He trabajado con','hero.status':'Estado','hero.statusVal':'Abierto a proyectos','hero.scroll':'Scroll',
+    'about.label':'Sobre mí',
+    'about.title':'Cinco años haciendo imágenes que <em>se sostienen solas</em>. Diseño, animación y dirección visual para música, marcas y mundos propios.',
+    'about.p1':'Diseñador 3D generalista. Trabajo en la intersección entre animación, dirección visual y narrativa. Lo que busco en cada proyecto es lo mismo: una imagen que tenga peso, una atmósfera específica, una decisión clara detrás de cada plano.',
+    'about.p2':'Vengo de hacer videoclips, identidades visuales en movimiento, secuencias para artistas musicales y campañas. He colaborado con proyectos de LATAM, Estados Unidos, Japón y Canadá.',
+    'dossier.rol':'Rol','dossier.software':'Software','dossier.services':'Servicios','dossier.servicesVal':'Videoclips · Anuncios · Mundos 3D · VFX · Dirección creativa',
+    'dossier.year':'Experiencia','dossier.yearVal':'5+ años freelance','dossier.langs':'Idiomas',
+    'work.label':'Exposición','work.title':'Una <em>exposición</em> en movimiento. Trabajos elegidos entre cinco años.',
+    'contact.label':'Contacto',
+    'contact.title':'Decime qué idea tenés. <em>De manera simple completá el siguiente formulario.</em>',
+    'contact.intro':'Llená los datos, elegí el estilo y contame tu idea. Te genero un ticket con todo y lo enviás directo a mi Instagram.',
+    'how.1':'Completá tu nombre, país y elegí las opciones de tu video.','how.2':'Apretá "Generar ticket" — se crea una imagen con tu pedido.','how.3':'Apretá "Enviar solicitud": copio el mensaje y abro mi chat de Instagram.','how.4':'En el chat, mantené presionado y elegí "Pegar". Mandá el mensaje y listo.','ticket.copied':'✓ Imagen del ticket generada. El mensaje ya está copiado.','ticket.copiedConfirm':'✓ ¡Mensaje copiado! Abrí el chat, mantené presionado y elegí "Pegar".',
+    'form.name':'Nombre','form.namePh':'¿Cómo te llamás?',
+    'form.country':'País','form.countryPh':'¿Desde dónde escribís?',
+    'form.email':'Email (opcional)','form.emailPh':'tu@email.com',
+    'form.chars':'Personajes','form.style':'Estilo','form.dur':'Duración','form.idea':'Tu idea','form.ideaPh':'Contame brevemente qué imaginás. Referencias, mood, mensaje...',
+    'form.generate':'Generar ticket','form.send':'Enviar solicitud →',
+    'win.title':'¡GANASTE! 🎉','win.unlock':'15% OFF DESBLOQUEADO','win.use':'Usalo en el formulario de abajo','win.claim':'▶ RECLAMAR',
+    'dialog.0':'¡Hay cupos disponibles este mes!',
+    'dialog.1':'Jugá Super Cyberwacho Bros y ganá 15% OFF',
+    'dialog.2':'¿Tenés una idea? Bajá y contame.',
+    'dialog.3':'Trabajos nuevos cada semana',
+    'dialog.4':'Buenas, soy Cyberwacho 👾',
+    'soon.badge':'Próximamente','soon.sub':'Anotate siguiendo el Instagram para enterarte primero.',
+    'game.intro':'Usá el joystick para moverte y el botón para saltar. Esquivá meteoros y enemigos, y tocá la bandera al final para ganar tu <b>15% OFF</b>.','game.hud':'JOYSTICK · SALTAR','game.overlay':'Llegá a la bandera para ganar <b>15% OFF</b><br><br>☄ Esquivá meteoros y enemigos<br>Joystick para mover · Botón para saltar','game.play':'▶ JUGAR','game.move':'Mover','game.jump':'SALTAR',
+  },
+  en: {
+    'nav.work':'Work','nav.about':'About','nav.play':'Play','nav.contact':'Contact',
+    'hero.eyebrow':'Independent Studio · Est. 2020',
+    'hero.statement':'3D imagery with narrative, atmosphere and direction.',
+    'hero.statement.sub':'— Cinematic animation, VFX and visual worlds for artists, brands and projects that refuse to settle.',
+    'hero.based':'Based','hero.worked':'Worked with','hero.status':'Status','hero.statusVal':'Open for commissions','hero.scroll':'Scroll',
+    'about.label':'About',
+    'about.title':'Five years making images that <em>stand on their own</em>. Design, animation and visual direction for music, brands and personal worlds.',
+    'about.p1':'3D generalist designer. I work at the intersection of animation, visual direction and narrative. What I look for in every project is the same: an image with weight, a specific atmosphere, a clear decision behind every shot.',
+    'about.p2':'I make music videos, motion identities, sequences for musicians, and campaigns. I have collaborated with projects across LATAM, the US, Japan and Canada.',
+    'dossier.rol':'Role','dossier.software':'Software','dossier.services':'Services','dossier.servicesVal':'Music videos · Ads · 3D worlds · VFX · Creative direction',
+    'dossier.year':'Experience','dossier.yearVal':'5+ years freelance','dossier.langs':'Languages',
+    'work.label':'Exhibition','work.title':'An <em>exhibition</em> in motion. Selected works from five years.',
+    'contact.label':'Contact',
+    'contact.title':'Tell me your idea. <em>Simply fill in the form below.</em>',
+    'contact.intro':'Fill in your info, pick a style, describe your idea. I will generate a ticket and you send it directly to my Instagram.',
+    'how.1':'Fill in your name, country and pick your video options.','how.2':'Press "Generate ticket" — an image with your request is created.','how.3':'Press "Send request": I copy the message and open my Instagram chat.','how.4':'In the chat, long-press and choose "Paste". Send the message and done.','ticket.copied':'✓ Ticket image generated. The message is already copied.','ticket.copiedConfirm':'✓ Message copied! Open the chat, long-press and choose "Paste".',
+    'form.name':'Name','form.namePh':'What\'s your name?',
+    'form.country':'Country','form.countryPh':'Where are you writing from?',
+    'form.email':'Email (optional)','form.emailPh':'your@email.com',
+    'form.chars':'Characters','form.style':'Style','form.dur':'Duration','form.idea':'Your idea','form.ideaPh':'Briefly describe what you imagine. References, mood, message...',
+    'form.generate':'Generate ticket','form.send':'Send request →',
+    'win.title':'YOU WIN! 🎉','win.unlock':'15% OFF UNLOCKED','win.use':'Use it in the form below','win.claim':'▶ CLAIM',
+    'dialog.0':'Slots available this month!',
+    'dialog.1':'Play Super Cyberwacho Bros and win 15% OFF',
+    'dialog.2':'Got an idea? Scroll down and tell me.',
+    'dialog.3':'New work every week',
+    'dialog.4':'Hey, I\'m Cyberwacho 👾',
+    'soon.badge':'Coming soon','soon.sub':'Follow the Instagram to be the first to know.',
+    'game.intro':'Use the joystick to move and the button to jump. Dodge meteors and enemies, and touch the flag at the end to win your <b>15% OFF</b>.','game.hud':'JOYSTICK · JUMP','game.overlay':'Reach the flag to win <b>15% OFF</b><br><br>☄ Dodge meteors and enemies<br>Joystick to move · Button to jump','game.play':'▶ PLAY','game.move':'Move','game.jump':'JUMP',
+  },
+  pt: {
+    'nav.work':'Trabalhos','nav.about':'Sobre','nav.play':'Jogar','nav.contact':'Contato',
+    'hero.eyebrow':'Estúdio Independente · Est. 2020',
+    'hero.statement':'Imagens 3D com narrativa, atmosfera e direção.',
+    'hero.statement.sub':'— Animação cinemática, VFX e mundos visuais para artistas, marcas e projetos que não se conformam.',
+    'hero.based':'Localização','hero.worked':'Trabalhei com','hero.status':'Status','hero.statusVal':'Aberto a projetos','hero.scroll':'Rolar',
+    'about.label':'Sobre',
+    'about.title':'Cinco anos fazendo imagens que <em>se sustentam sozinhas</em>. Design, animação e direção visual para música, marcas e mundos próprios.',
+    'about.p1':'Designer 3D generalista. Trabalho na interseção entre animação, direção visual e narrativa. O que busco em cada projeto é o mesmo: uma imagem com peso, uma atmosfera específica, uma decisão clara por trás de cada plano.',
+    'about.p2':'Faço videoclipes, identidades visuais em movimento, sequências para artistas musicais e campanhas. Colaborei com projetos na América Latina, EUA, Japão e Canadá.',
+    'dossier.rol':'Função','dossier.software':'Software','dossier.services':'Serviços','dossier.servicesVal':'Videoclipes · Anúncios · Mundos 3D · VFX · Direção criativa',
+    'dossier.year':'Experiência','dossier.yearVal':'5+ anos freelance','dossier.langs':'Idiomas',
+    'work.label':'Exposição','work.title':'Uma <em>exposição</em> em movimento. Trabalhos selecionados de cinco anos.',
+    'contact.label':'Contato',
+    'contact.title':'Me conta sua ideia. <em>De maneira simples preenche o formulário abaixo.</em>',
+    'contact.intro':'Preenche os dados, escolhe um estilo e me conta a ideia. Eu gero um ticket com tudo e você envia direto pro meu Instagram.',
+    'how.1':'Preenche teu nome, país e escolhe as opções do teu vídeo.','how.2':'Aperta "Gerar ticket" — cria-se uma imagem com teu pedido.','how.3':'Aperta "Enviar solicitação": copio a mensagem e abro meu chat do Instagram.','how.4':'No chat, mantém pressionado e escolhe "Colar". Envia a mensagem e pronto.','ticket.copied':'✓ Imagem do ticket gerada. A mensagem já está copiada.','ticket.copiedConfirm':'✓ Mensagem copiada! Abre o chat, mantém pressionado e escolhe "Colar".',
+    'form.name':'Nome','form.namePh':'Qual é o seu nome?',
+    'form.country':'País','form.countryPh':'De onde você escreve?',
+    'form.email':'Email (opcional)','form.emailPh':'seu@email.com',
+    'form.chars':'Personagens','form.style':'Estilo','form.dur':'Duração','form.idea':'Sua ideia','form.ideaPh':'Descreva brevemente o que imagina. Referências, mood, mensagem...',
+    'form.generate':'Gerar ticket','form.send':'Enviar solicitação →',
+    'win.title':'VOCÊ GANHOU! 🎉','win.unlock':'15% OFF DESBLOQUEADO','win.use':'Use no formulário abaixo','win.claim':'▶ RESGATAR',
+    'dialog.0':'Há vagas disponíveis este mês!',
+    'dialog.1':'Joga Super Cyberwacho Bros e ganha 15% OFF',
+    'dialog.2':'Tem uma ideia? Desce e me conta.',
+    'dialog.3':'Trabalhos novos toda semana',
+    'dialog.4':'Oi, sou o Cyberwacho 👾',
+    'soon.badge':'Em breve','soon.sub':'Segue o Instagram para saber em primeira mão.',
+    'game.intro':'Use o joystick para se mover e o botão para pular. Desvie de meteoros e inimigos, e toque na bandeira no final para ganhar seu <b>15% OFF</b>.','game.hud':'JOYSTICK · PULAR','game.overlay':'Chegue à bandeira para ganhar <b>15% OFF</b><br><br>☄ Desvie de meteoros e inimigos<br>Joystick para mover · Botão para pular','game.play':'▶ JOGAR','game.move':'Mover','game.jump':'PULAR',
+  },
+  jp: {
+    'nav.work':'作品','nav.about':'について','nav.play':'プレイ','nav.contact':'連絡',
+    'hero.eyebrow':'インディペンデント・スタジオ · 2020年設立',
+    'hero.statement':'物語・雰囲気・演出のある3D映像。',
+    'hero.statement.sub':'— アーティスト、ブランド、妥協しないプロジェクトのためのシネマティック・アニメーション、VFX、ビジュアル世界。',
+    'hero.based':'拠点','hero.worked':'仕事相手','hero.status':'状況','hero.statusVal':'依頼受付中','hero.scroll':'スクロール',
+    'about.label':'について',
+    'about.title':'5年間、<em>独立して成立する</em>映像を作ってきた。音楽・ブランド・個人作品のためのデザイン、アニメーション、ビジュアルディレクション。',
+    'about.p1':'3Dジェネラリストデザイナー。アニメーション、ビジュアルディレクション、ナラティブの交差点で働いている。すべてのプロジェクトで求めるのは同じ:重みのある映像、特定の雰囲気、各カットの背後にある明確な決定。',
+    'about.p2':'ミュージックビデオ、モーションアイデンティティ、ミュージシャンのシーケンス、キャンペーンを制作。中南米、米国、日本、カナダのプロジェクトに参加。',
+    'dossier.rol':'役割','dossier.software':'ソフトウェア','dossier.services':'サービス','dossier.servicesVal':'MV · 広告 · 3D世界 · VFX · クリエイティブディレクション',
+    'dossier.year':'経験','dossier.yearVal':'フリーランス5年以上','dossier.langs':'言語',
+    'work.label':'展示','work.title':'動く<em>展示</em>。5年間からの厳選作品。',
+    'contact.label':'連絡',
+    'contact.title':'アイデアを教えてください。<em>下のフォームに記入するだけ。</em>',
+    'contact.intro':'情報を入力し、スタイルを選び、アイデアを教えてください。チケットを作成し、Instagramに直接送信できます。',
+    'how.1':'名前、国を入力し、動画のオプションを選択してください。','how.2':'「チケット生成」を押すと、リクエストの画像が作成されます。','how.3':'「リクエスト送信」を押すと、メッセージをコピーしInstagramチャットを開きます。','how.4':'チャットで長押しして「貼り付け」を選択。メッセージを送信して完了。','ticket.copied':'✓ チケット画像を生成しました。メッセージはコピー済みです。','ticket.copiedConfirm':'✓ メッセージをコピーしました！チャットを開き、長押しして「貼り付け」を選択。',
+    'form.name':'名前','form.namePh':'お名前は?',
+    'form.country':'国','form.countryPh':'どこから書いていますか?',
+    'form.email':'メール (任意)','form.emailPh':'your@email.com',
+    'form.chars':'キャラクター','form.style':'スタイル','form.dur':'時間','form.idea':'あなたのアイデア','form.ideaPh':'想像していることを簡単に。参照、ムード、メッセージ...',
+    'form.generate':'チケット生成','form.send':'リクエスト送信 →',
+    'win.title':'勝利! 🎉','win.unlock':'15% OFF 獲得','win.use':'下のフォームで使用','win.claim':'▶ 受け取る',
+    'dialog.0':'今月、空き枠あります!',
+    'dialog.1':'スーパー・サイバーワチョ・ブラザーズで15% OFFをゲット',
+    'dialog.2':'アイデアがある? 下にスクロールして教えて。',
+    'dialog.3':'毎週新作',
+    'dialog.4':'やあ、僕はサイバーワチョ 👾',
+    'soon.badge':'近日公開','soon.sub':'Instagramをフォローして最新情報をチェック。',
+    'game.intro':'ジョイスティックで移動、ボタンでジャンプ。隕石と敵を避けて、最後の旗に触れて<b>15% OFF</b>を獲得しよう。','game.hud':'ジョイスティック · ジャンプ','game.overlay':'旗にたどり着いて<b>15% OFF</b>を獲得<br><br>☄ 隕石と敵を避けよう<br>ジョイスティックで移動 · ボタンでジャンプ','game.play':'▶ プレイ','game.move':'移動','game.jump':'ジャンプ',
+  },
+};
+let currentLang = localStorage.getItem('cwLang') || 'es';
+function applyLang(lang){
+  if (!I18N[lang]) lang = 'es';
+  currentLang = lang;
+  localStorage.setItem('cwLang', lang);
+  document.documentElement.lang = lang;
+  document.querySelectorAll('[data-i18n]').forEach(el => {
+    const key = el.dataset.i18n;
+    const val = I18N[lang][key];
+    if (val !== undefined) el.innerHTML = val;
+  });
+  document.querySelectorAll('[data-i18n-ph]').forEach(el => {
+    const key = el.dataset.i18nPh;
+    const val = I18N[lang][key];
+    if (val !== undefined) el.placeholder = val;
+  });
+  // language buttons
+  document.querySelectorAll('.lang-btn').forEach(b => {
+    b.classList.toggle('active', b.dataset.lang === lang);
+  });
+}
+document.addEventListener('click', e => {
+  const b = e.target.closest('.lang-btn');
+  if (!b) return;
+  applyLang(b.dataset.lang);
+});
+// Apply on load
+applyLang(currentLang);
+
+// Rotating dialog bubble
+(function(){
+  const txt = document.getElementById('dialogText');
+  const bubble = document.getElementById('dialogBubble');
+  if (!txt || !bubble) return;
+  const keys = ['dialog.0','dialog.1','dialog.2','dialog.3','dialog.4'];
+  let i = 0;
+  setInterval(() => {
+    i = (i + 1) % keys.length;
+    bubble.classList.add('hidden');
+    setTimeout(() => {
+      txt.setAttribute('data-i18n', keys[i]);
+      txt.innerHTML = I18N[currentLang][keys[i]] || keys[i];
+      bubble.classList.remove('hidden');
+    }, 350);
+  }, 5500);
+})();
+
+/* ============================================
+   1. Title lockup — split letters with hover glow
+   ============================================ */
+(function(){
+  const lockup = document.getElementById('titleLockup');
+  lockup.querySelectorAll('.word').forEach(w => {
+    const txt = w.dataset.word;
+    w.innerHTML = '';
+    for (let i = 0; i < txt.length; i++) {
+      const s = document.createElement('span');
+      s.className = 'l';
+      s.textContent = txt[i];
+      s.style.transitionDelay = (i * 30) + 'ms';
+      s.addEventListener('mouseenter', () => s.classList.add('glow'));
+      s.addEventListener('mouseleave', () => setTimeout(()=>s.classList.remove('glow'), 400));
+      w.appendChild(s);
+    }
+  });
+})();
+
+/* ============================================
+   1b. Character parallax — floats and follows scroll smoothly
+   ============================================ */
+(function(){
+  const charBox = document.querySelector('.hero-character');
+  if (!charBox) return;
+  let targetY = 0, currentY = 0;
+  let ticking = false;
+
+  window.addEventListener('scroll', () => {
+    // character drifts upward slower than scroll → parallax depth
+    targetY = window.scrollY * 0.18;
+    if (!ticking) {
+      ticking = true;
+      requestAnimationFrame(animateChar);
+    }
+  }, { passive: true });
+
+  function animateChar(){
+    currentY += (targetY - currentY) * 0.09;
+    charBox.style.transform = `translateY(${currentY.toFixed(2)}px)`;
+    if (Math.abs(targetY - currentY) > 0.3) {
+      requestAnimationFrame(animateChar);
+    } else {
+      ticking = false;
+    }
+  }
+})();
+
+/* ============================================
+   2. Organic background — metaballs canvas
+   smooth + responsive to cursor + scroll
+   ============================================ */
+(function(){
+  const cv = document.getElementById('bg-canvas');
+  const ctx = cv.getContext('2d', { alpha: true });
+  let W, H, DPR;
+
+  function resize(){
+    DPR = Math.min(window.devicePixelRatio || 1, 2);
+    W = window.innerWidth;
+    H = window.innerHeight;
+    cv.width = W * DPR;
+    cv.height = H * DPR;
+    cv.style.width = W + 'px';
+    cv.style.height = H + 'px';
+    ctx.setTransform(DPR, 0, 0, DPR, 0, 0);
+  }
+  resize();
+  window.addEventListener('resize', resize);
+
+  // palette — soft iridescent (matches reference gifs)
+  const palette = [
+    { r: 201, g: 138, b: 155, a: 0.55 }, // rose
+    { r: 163, g: 158, b: 201, a: 0.50 }, // lilac
+    { r: 111, g: 179, b: 176, a: 0.42 }, // teal
+    { r: 196, g: 200, b: 122, a: 0.32 }, // citrus
+    { r: 217, g: 168, b: 120, a: 0.42 }, // amber
+    { r:  90, g: 110, b: 180, a: 0.32 }, // deep blue
+  ];
+
+  // blobs
+  const N = 9;
+  const blobs = [];
+  for (let i = 0; i < N; i++){
+    blobs.push({
+      x: Math.random() * W,
+      y: Math.random() * H,
+      vx: (Math.random() - 0.5) * 0.18,
+      vy: (Math.random() - 0.5) * 0.18,
+      r: 140 + Math.random() * 180,
+      c: palette[i % palette.length],
+      phase: Math.random() * Math.PI * 2,
+      speed: 0.0005 + Math.random() * 0.0008,
+    });
+  }
+  // small accent dots (like the bokeh in ref gif 4)
+  const dots = [];
+  for (let i = 0; i < 22; i++){
+    dots.push({
+      x: Math.random() * W,
+      y: Math.random() * H,
+      r: 1 + Math.random() * 3,
+      c: palette[Math.floor(Math.random()*palette.length)],
+      vy: 0.05 + Math.random() * 0.15,
+      vx: (Math.random()-0.5) * 0.08,
+      pulse: Math.random()*Math.PI*2,
+    });
+  }
+
+  // mouse with smoothed lerp + scroll influence
+  const mouse = { x: W/2, y: H/2, tx: W/2, ty: H/2 };
+  let scrollY = 0, targetScroll = 0;
+  window.addEventListener('mousemove', e => { mouse.tx = e.clientX; mouse.ty = e.clientY; }, { passive: true });
+  window.addEventListener('scroll', () => { targetScroll = window.scrollY; }, { passive: true });
+  // touch
+  window.addEventListener('touchmove', e => {
+    if (e.touches[0]) { mouse.tx = e.touches[0].clientX; mouse.ty = e.touches[0].clientY; }
+  }, { passive: true });
+
+  let t = 0;
+  function frame(){
+    t += 1;
+    // smooth lerp
+    mouse.x += (mouse.tx - mouse.x) * 0.045;
+    mouse.y += (mouse.ty - mouse.y) * 0.045;
+    scrollY += (targetScroll - scrollY) * 0.08;
+
+    // fill base black
+    ctx.globalCompositeOperation = 'source-over';
+    ctx.fillStyle = '#050505';
+    ctx.fillRect(0, 0, W, H);
+
+    // additive blending for soft glow
+    ctx.globalCompositeOperation = 'lighter';
+
+    // scroll-induced gentle pull
+    const scrollOff = scrollY * 0.04;
+
+    for (let i = 0; i < blobs.length; i++){
+      const b = blobs[i];
+      b.phase += b.speed * 16.6;
+
+      // organic drift
+      b.x += b.vx + Math.cos(b.phase) * 0.25;
+      b.y += b.vy + Math.sin(b.phase * 0.8) * 0.22;
+
+      // cursor attraction (soft)
+      const dx = mouse.x - b.x;
+      const dy = (mouse.y + scrollOff) - b.y;
+      const d = Math.sqrt(dx*dx + dy*dy);
+      const pull = Math.min(0.0006, 20 / (d*d + 400));
+      b.vx += dx * pull;
+      b.vy += dy * pull;
+
+      // damping
+      b.vx *= 0.985;
+      b.vy *= 0.985;
+
+      // wrap
+      if (b.x < -b.r) b.x = W + b.r;
+      if (b.x > W + b.r) b.x = -b.r;
+      if (b.y < -b.r) b.y = H + b.r;
+      if (b.y > H + b.r) b.y = -b.r;
+
+      // radial gradient — soft sphere
+      const breath = 0.9 + Math.sin(b.phase * 0.6) * 0.1;
+      const r = b.r * breath;
+      const g = ctx.createRadialGradient(b.x, b.y, 0, b.x, b.y, r);
+      const c = b.c;
+      g.addColorStop(0,   `rgba(${c.r},${c.g},${c.b},${c.a})`);
+      g.addColorStop(0.4, `rgba(${c.r},${c.g},${c.b},${c.a * 0.45})`);
+      g.addColorStop(1,   `rgba(${c.r},${c.g},${c.b},0)`);
+      ctx.fillStyle = g;
+      ctx.beginPath();
+      ctx.arc(b.x, b.y, r, 0, Math.PI * 2);
+      ctx.fill();
+    }
+
+    // bokeh dots
+    for (let i = 0; i < dots.length; i++){
+      const d = dots[i];
+      d.x += d.vx;
+      d.y += d.vy;
+      d.pulse += 0.02;
+      if (d.y > H + 20) { d.y = -20; d.x = Math.random() * W; }
+      if (d.x < -20) d.x = W + 20;
+      if (d.x > W + 20) d.x = -20;
+      const a = (Math.sin(d.pulse) * 0.4 + 0.6) * 0.55;
+      ctx.fillStyle = `rgba(${d.c.r},${d.c.g},${d.c.b},${a})`;
+      ctx.beginPath();
+      ctx.arc(d.x, d.y, d.r, 0, Math.PI * 2);
+      ctx.fill();
+    }
+
+    // subtle dark center wash so text stays readable on light blobs
+    ctx.globalCompositeOperation = 'source-over';
+    const vg = ctx.createRadialGradient(W/2, H*0.45, H*0.2, W/2, H*0.5, H*0.9);
+    vg.addColorStop(0, 'rgba(5,5,5,0)');
+    vg.addColorStop(1, 'rgba(5,5,5,0.4)');
+    ctx.fillStyle = vg;
+    ctx.fillRect(0, 0, W, H);
+
+    // Only keep animating while the tab is visible — saves CPU & battery
+    if (!document.hidden) requestAnimationFrame(frame);
+  }
+  requestAnimationFrame(frame);
+  // Resume animation when the tab becomes visible again
+  document.addEventListener('visibilitychange', () => {
+    if (!document.hidden) requestAnimationFrame(frame);
+  });
+})();
+
+/* ============================================
+   3. Reveal on scroll
+   ============================================ */
+const io = new IntersectionObserver((entries) => {
+  entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('in'); });
+}, { threshold: 0.08 });
+document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+
+/* ============================================
+   4. Works — data + render + lightbox
+   each work has a unique placeholder color sourced from the palette so thumbnails don't repeat.
+   ============================================ */
+/* Each work points to local files in /thumbs and /videos.
+   `kind`:
+     'youtube' → use yt thumbnail + yt iframe in lightbox (knak, fast love)
+     'local'   → local jpg as thumb, local mp4 (hover preview + full in lightbox)
+     'image'   → local jpg only, opens external link (no video supplied)
+*/
+const WORKS = [
+  {
+    title: 'Knak — Leiti',
+    desc: 'Video 3D para artista musical. Animación cinemática e iluminación atmosférica.',
+    year: '2022',
+    span: 'w-lg',
+    kind: 'youtube',
+    id: 'EXMwb36cB6g',
+    link: 'https://www.youtube.com/watch?v=EXMwb36cB6g',
+    accent: ['#c98a9b', '#a39ec9'],
+  },
+  {
+    title: 'HWII — Green screen 3D environment',
+    desc: 'Set virtual de noticiero. Tracking, modelado y compositing integrado a imagen real.',
+    year: '2022',
+    span: 'w-md',
+    kind: 'external',
+    link: 'https://www.instagram.com/cyberwacho',
+    thumb: 'Hwii 2022.webp',
+    accent: ['#6fb3b0', '#2a3550'],
+  },
+  {
+    title: 'Cyberwacho — Origin',
+    desc: 'Primer personaje. Geometry nodes, cámara animada, modelado y texturizado.',
+    year: '2022',
+    span: 'w-sm',
+    kind: 'external',
+    link: 'https://www.instagram.com/cyberwacho',
+    thumb: 'Cyberwacho 2022.webp',
+    accent: ['#d9a878', '#c98a9b'],
+  },
+  {
+    title: 'Alan Gomez ft. Callejero Fino — Mío no tuyo',
+    desc: 'Videoclip. 3D animation, VFX, montaje y color grading.',
+    year: '2023',
+    span: 'w-wide',
+    kind: 'external',
+    link: 'https://www.instagram.com/p/CoayP2qL0Z1/',
+    thumb: 'Mio No Tuyo.webp',
+    views: '+12M views',
+    accent: ['#c98a9b', '#d9a878'],
+  },
+  {
+    title: 'Kiech — Ltd. edition',
+    desc: 'Colaboración artística. Logo en 3D con tratamiento gótico.',
+    year: '2023',
+    span: 'w-tall',
+    kind: 'external',
+    link: 'https://www.instagram.com/reel/CyW0FRis_Zw/',
+    thumb: 'Kiech Video 2023.webp',
+    accent: ['#a39ec9', '#6fb3b0'],
+  },
+  {
+    title: 'Fast Love — Diego Smith × Kidd Tetoon',
+    desc: 'Videoclip con VFX y animación 3D cinematográfica.',
+    year: '2023',
+    span: 'w-md',
+    kind: 'youtube',
+    id: '-z3j6pXKU6A',
+    link: 'https://www.youtube.com/watch?v=-z3j6pXKU6A',
+    views: '+500K views',
+    accent: ['#c4c87a', '#a39ec9'],
+  },
+  {
+    title: 'Cyberwacho — Universe',
+    desc: 'Diseño de personaje, hardsurface modeling y simulación de partículas.',
+    year: '2024',
+    span: 'w-md',
+    kind: 'external',
+    link: 'https://www.instagram.com/reel/C5ytXXdRINd/',
+    thumb: 'Cyber Mundo 2024.webp',
+    accent: ['#2a3550', '#c98a9b'],
+  },
+  {
+    title: 'Retro cartoon — Enzo',
+    desc: 'Animación nostálgica con técnica moderna. Serie de tres piezas.',
+    year: '2025',
+    span: 'w-sm',
+    kind: 'external',
+    link: 'https://www.instagram.com/reel/DQ2Z79WEb9x/',
+    thumb: 'Enzocerobulto2025.webp',
+    accent: ['#d9a878', '#c4c87a'],
+  },
+  {
+    title: 'Retro cartoon — Cero',
+    desc: 'Segunda pieza de la serie. Color, ritmo y stretch & squash.',
+    year: '2025',
+    span: 'w-sm',
+    kind: 'external',
+    link: 'https://www.instagram.com/reel/DQ5QP_UkaUa/',
+    thumb: 'Cero 2025.webp',
+    accent: ['#6fb3b0', '#c4c87a'],
+  },
+  {
+    title: 'Retro cartoon — Underaiki',
+    desc: 'Tercera entrega. Cierre de la trilogía retro.',
+    year: '2025',
+    span: 'w-sm',
+    kind: 'external',
+    link: 'https://www.instagram.com/reel/DRFHpTgEZ6g/',
+    thumb: 'Underaiki 2025.webp',
+    accent: ['#a39ec9', '#d9a878'],
+  },
+  {
+    title: 'Hora de Aventura — Game concept',
+    desc: 'Concepto visual para videojuego. Entornos y personajes en Blender.',
+    year: '2026',
+    span: 'w-wide',
+    kind: 'external',
+    link: 'https://www.instagram.com/reel/DX0mcDQP8Ai/',
+    thumb: 'Hora De Aventura 2026.webp',
+    accent: ['#6fb3b0', '#c98a9b'],
+  },
+  {
+    title: 'Lazer Dim 700',
+    desc: 'Animación 3D cinematográfica. VFX de última generación.',
+    year: '2026',
+    span: 'w-tall',
+    kind: 'external',
+    link: 'https://www.instagram.com/reel/DYdtvnzvJH0/',
+    thumb: 'Lazer Dim 700.webp',
+    accent: ['#c98a9b', '#2a3550'],
+  },
+  {
+    title: '2UU — News 2026',
+    desc: 'Iteración 2026 del set virtual. Update de estética, lighting y materiales.',
+    year: '2026',
+    span: 'w-md',
+    kind: 'external',
+    link: 'https://www.instagram.com/cyberwacho',
+    thumb: '2Uu 2026 Video.webp',
+    accent: ['#c4c87a', '#6fb3b0'],
+  },
+  {
+    title: 'Clase de introducción a Blender — Gratis',
+    desc: 'Próximamente. Una clase abierta para empezar en 3D desde cero.',
+    year: 'Soon',
+    span: 'w-wide',
+    kind: 'soon',
+    link: 'https://www.instagram.com/cyberwacho',
+    accent: ['#d9a878', '#a39ec9'],
+  },
+];
+
+/* ---------- Thumbnails strategy ----------
+   YouTube  → static hi-res thumbnail from i.ytimg.com (reliable, cacheable)
+   Instagram → embed iframe (shows the real Reel/post cover; loads on demand)
+   Every item also has a unique gradient placeholder built from its accent
+   palette so nothing looks repeated even before media arrives.
+*/
+function placeholderSVG(accent){
+  // SVG placeholder with the work's accent palette so each piece looks different
+  const [a, b] = accent;
+  const svg = `<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 800 600' preserveAspectRatio='xMidYMid slice'>
+    <defs>
+      <radialGradient id='g1' cx='35%' cy='35%' r='65%'>
+        <stop offset='0%' stop-color='${a}' stop-opacity='0.85'/>
+        <stop offset='60%' stop-color='${a}' stop-opacity='0.25'/>
+        <stop offset='100%' stop-color='${a}' stop-opacity='0'/>
+      </radialGradient>
+      <radialGradient id='g2' cx='70%' cy='75%' r='55%'>
+        <stop offset='0%' stop-color='${b}' stop-opacity='0.8'/>
+        <stop offset='60%' stop-color='${b}' stop-opacity='0.2'/>
+        <stop offset='100%' stop-color='${b}' stop-opacity='0'/>
+      </radialGradient>
+      <filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/><feColorMatrix values='0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 0.35 0'/></filter>
+    </defs>
+    <rect width='800' height='600' fill='#0a0a0c'/>
+    <rect width='800' height='600' fill='url(#g1)'/>
+    <rect width='800' height='600' fill='url(#g2)'/>
+    <rect width='800' height='600' filter='url(#n)' opacity='0.6'/>
+  </svg>`;
+  return 'data:image/svg+xml;utf8,' + encodeURIComponent(svg);
+}
+
+(function renderWorks(){
+  const grid = document.getElementById('worksGrid');
+  WORKS.forEach((w, i) => {
+    const el = document.createElement('a');
+    el.className = 'work ' + w.span;
+    el.href = w.link;
+    el.target = '_blank';
+    el.rel = 'noopener';
+    el.dataset.idx = i;
+
+    const fallback = placeholderSVG(w.accent);
+
+    // "Coming soon" announcement card — Blender class
+    if (w.kind === 'soon') {
+      el.className = 'work ' + w.span + ' work-soon';
+      el.innerHTML = `
+        <div class="work-frame">
+          <div class="ph" style="background-image:url('${fallback}')"></div>
+          <div class="soon-content">
+            <span class="soon-badge" data-i18n="soon.badge">Próximamente</span>
+            <h3 class="soon-title">${w.title}</h3>
+            <p class="soon-sub" data-i18n="soon.sub">Anotate siguiendo el Instagram para enterarte primero.</p>
+          </div>
+        </div>
+      `;
+      grid.appendChild(el);
+      return;
+    }
+
+    let thumbSrc;
+    if (w.kind === 'youtube') {
+      thumbSrc = `https://i.ytimg.com/vi/${w.id}/maxresdefault.jpg`;
+    } else {
+      thumbSrc = encodeURI(w.thumb);
+    }
+
+    const platformBadge = w.kind === 'youtube' ? 'YouTube' : 'Instagram';
+
+    el.innerHTML = `
+      <div class="work-frame">
+        <div class="ph" style="background-image:url('${fallback}')"></div>
+        <img class="work-thumb" src="${thumbSrc}" alt="${w.title}" loading="lazy"
+             onerror="${w.kind==='youtube' ? `if(this.dataset.fb!=='1'){this.dataset.fb='1';this.src='https://i.ytimg.com/vi/${w.id}/hqdefault.jpg';}else{this.style.display='none';}` : `this.style.display='none'`}">
+        <div class="play"></div>
+        <span class="platform-badge">${platformBadge} ↗</span>
+      </div>
+      <div class="work-caption">
+        <h3>${w.title}</h3>
+        <span class="meta">${String(i+1).padStart(2,'0')} · ${w.year}</span>
+      </div>
+      <p class="work-desc">${w.desc}</p>
+      ${w.views ? `<span class="work-views">${w.views}</span>` : ''}
+    `;
+
+    // Click anywhere on the card opens the original Instagram/YouTube link in a new tab.
+    grid.appendChild(el);
+  });
+})();
+
+/* ============================================
+   5. Pills (form selection)
+   FIX for spacebar: stop pill clicks from stealing focus / preventDefault
+   ============================================ */
+const SELECTION = { chars: null, style: null, dur: null };
+document.querySelectorAll('.pills').forEach(group => {
+  const g = group.dataset.group;
+  group.querySelectorAll('.pill').forEach(p => {
+    p.addEventListener('click', (e) => {
+      e.preventDefault();
+      group.querySelectorAll('.pill').forEach(x => x.classList.remove('on'));
+      p.classList.add('on');
+      SELECTION[g] = p.dataset.v;
+    });
+  });
+});
+
+/* ============================================
+   6. Textarea fix
+   The previous version had global keydown listeners that could swallow space.
+   We make sure the textarea handles its own input and stop propagation for space.
+   ============================================ */
+const ideaInput = document.getElementById('idea');
+['keydown','keypress','keyup'].forEach(evt => {
+  ideaInput.addEventListener(evt, (e) => {
+    // ensure space and all keys propagate normally inside textarea
+    e.stopPropagation();
+  });
+});
+
+/* ============================================
+   7. Ticket generation — PNG with cat background + watermark
+   ============================================ */
+let ticketReady = false;
+let ticketTextCache = '';
+
+function getOrderNumber(){
+  // Persistent counter starting at #023
+  let n = parseInt(localStorage.getItem('cwOrderN') || '23', 10);
+  localStorage.setItem('cwOrderN', String(n + 1));
+  return n;
+}
+
+function buildTicketText(){
+  const name    = (document.getElementById('userName').value || '').trim();
+  const country = (document.getElementById('userCountry').value || '').trim();
+  const email   = (document.getElementById('userEmail').value || '').trim();
+  const chars   = SELECTION.chars || '—';
+  const style   = SELECTION.style || '—';
+  const dur     = SELECTION.dur   || '—';
+  const idea    = (document.getElementById('idea').value || '').trim() || '(sin descripción)';
+  const won     = window.__wonGame === true;
+
+  // Build as a letter — natural language, not a tabular ticket
+  const greet = currentLang === 'en' ? 'Hi cyberwacho'
+              : currentLang === 'pt' ? 'Oi cyberwacho'
+              : currentLang === 'jp' ? 'こんにちは cyberwacho'
+              : 'Hola cyberwacho';
+
+  const iAm = currentLang === 'en' ? `I'm ${name||'(anon)'}`
+            : currentLang === 'pt' ? `sou ${name||'(anon)'}`
+            : currentLang === 'jp' ? `私は ${name||'(匿名)'}`
+            : `soy ${name||'(anon)'}`;
+
+  const from = country ? (currentLang === 'en' ? ` from ${country}` : currentLang === 'pt' ? ` do ${country}` : currentLang === 'jp' ? `、${country}から` : ` de ${country}`) : '';
+
+  const wantPhrase = currentLang === 'en' ? `I want a ${style.toLowerCase()} video of ${dur.toLowerCase()}`
+                  : currentLang === 'pt' ? `quero um vídeo ${style.toLowerCase()} de ${dur.toLowerCase()}`
+                  : currentLang === 'jp' ? `${style}スタイル、${dur}の動画が欲しい`
+                  : `quiero un video ${style.toLowerCase()} de ${dur.toLowerCase()}`;
+
+  const charsPhrase = currentLang === 'en' ? ` with ${chars.toLowerCase()}`
+                   : currentLang === 'pt' ? ` com ${chars.toLowerCase()}`
+                   : currentLang === 'jp' ? `、キャラクター: ${chars}`
+                   : ` con ${chars.toLowerCase()}`;
+
+  const ideaIntro = currentLang === 'en' ? 'My idea:'
+                  : currentLang === 'pt' ? 'Minha ideia:'
+                  : currentLang === 'jp' ? '私のアイデア:'
+                  : 'Mi idea:';
+
+  let msg = `${greet}, ${iAm}${from}.\n\n${wantPhrase}${charsPhrase}.\n\n${ideaIntro} ${idea}`;
+  if (email) msg += `\n\n${currentLang==='en'?'Email':currentLang==='pt'?'Email':currentLang==='jp'?'メール':'Email'}: ${email}`;
+  if (won)   msg += `\n\n⭐ 15% OFF (Super Cyberwacho Bros)`;
+
+  return msg;
+}
+
+async function generateTicket(){
+  const nameEl = document.getElementById('userName');
+  const countryEl = document.getElementById('userCountry');
+  if (!nameEl.value.trim()) {
+    nameEl.focus();
+    nameEl.style.borderColor = 'var(--rose)';
+    setTimeout(() => nameEl.style.borderColor = '', 2000);
+    return;
+  }
+  if (!countryEl.value.trim()) {
+    countryEl.focus();
+    countryEl.style.borderColor = 'var(--rose)';
+    setTimeout(() => countryEl.style.borderColor = '', 2000);
+    return;
+  }
+
+  const name    = nameEl.value.trim();
+  const country = countryEl.value.trim();
+  const chars   = SELECTION.chars || '—';
+  const style   = SELECTION.style || '—';
+  const dur     = SELECTION.dur   || '—';
+  const idea    = (document.getElementById('idea').value || '').trim() || '(sin descripción)';
+  const won     = window.__wonGame === true;
+  const orderN  = getOrderNumber();
+  const dateStr = new Date().toLocaleDateString(currentLang === 'jp' ? 'ja-JP' : currentLang, { day: '2-digit', month: '2-digit', year: 'numeric' });
+
+  ticketTextCache = buildTicketText();
+
+  // Render image
+  const canvas = document.getElementById('ticketCanvas');
+  const ctx = canvas.getContext('2d');
+  const W = canvas.width;
+  const H = canvas.height;
+
+  // Load cat as background
+  const catImg = new Image();
+  catImg.crossOrigin = 'anonymous';
+  await new Promise((res, rej) => {
+    catImg.onload = res;
+    catImg.onerror = res; // continue even if cat fails
+    catImg.src = 'assets/cat.jpg';
+  });
+
+  // Background — cat image stretched
+  if (catImg.naturalWidth) {
+    // cover fit
+    const r = Math.max(W / catImg.width, H / catImg.height);
+    const cw = catImg.width * r, ch = catImg.height * r;
+    ctx.drawImage(catImg, (W - cw) / 2, (H - ch) / 2, cw, ch);
+  } else {
+    ctx.fillStyle = '#1a0a2e';
+    ctx.fillRect(0, 0, W, H);
+  }
+
+  // Dark gradient overlay so text is readable
+  const grad = ctx.createLinearGradient(0, 0, 0, H);
+  grad.addColorStop(0, 'rgba(5, 5, 10, 0.75)');
+  grad.addColorStop(0.5, 'rgba(5, 5, 10, 0.55)');
+  grad.addColorStop(1, 'rgba(5, 5, 10, 0.85)');
+  ctx.fillStyle = grad;
+  ctx.fillRect(0, 0, W, H);
+
+  // Top frame line
+  ctx.strokeStyle = 'rgba(255,255,255,0.4)';
+  ctx.lineWidth = 2;
+  ctx.strokeRect(40, 40, W - 80, H - 80);
+  ctx.strokeStyle = 'rgba(255,255,255,0.15)';
+  ctx.lineWidth = 1;
+  ctx.strokeRect(50, 50, W - 100, H - 100);
+
+  // Header
+  ctx.fillStyle = '#fff';
+  ctx.textAlign = 'left';
+  ctx.font = 'bold 26px Inter, sans-serif';
+  ctx.fillText('CYBERWACHO', 80, 110);
+  ctx.font = '14px "JetBrains Mono", monospace';
+  ctx.fillStyle = '#c98a9b';
+  ctx.fillText('— ANIMATION REQUEST', 80, 140);
+
+  // Order number — top right
+  ctx.textAlign = 'right';
+  ctx.fillStyle = '#fff';
+  ctx.font = 'bold 32px "Press Start 2P", monospace';
+  ctx.fillText(`#${String(orderN).padStart(3, '0')}`, W - 80, 120);
+  ctx.font = '12px "JetBrains Mono", monospace';
+  ctx.fillStyle = 'rgba(255,255,255,0.6)';
+  ctx.fillText(dateStr, W - 80, 145);
+
+  // Divider
+  ctx.strokeStyle = 'rgba(255,255,255,0.25)';
+  ctx.beginPath(); ctx.moveTo(80, 175); ctx.lineTo(W - 80, 175); ctx.stroke();
+
+  // CLIENT block
+  let y = 220;
+  function field(label, value){
+    ctx.textAlign = 'left';
+    ctx.font = '12px "JetBrains Mono", monospace';
+    ctx.fillStyle = 'rgba(255,255,255,0.55)';
+    ctx.fillText(label.toUpperCase(), 80, y);
+    ctx.font = '24px Inter, sans-serif';
+    ctx.fillStyle = '#fff';
+    ctx.fillText(value, 80, y + 32);
+    y += 78;
+  }
+
+  field(currentLang==='en'?'NAME':currentLang==='pt'?'NOME':currentLang==='jp'?'名前':'NOMBRE', name);
+  field(currentLang==='en'?'COUNTRY':currentLang==='pt'?'PAÍS':currentLang==='jp'?'国':'PAÍS', country);
+
+  // Two columns: chars + style + duration
+  ctx.font = '12px "JetBrains Mono", monospace';
+  ctx.fillStyle = 'rgba(255,255,255,0.55)';
+  ctx.fillText(currentLang==='en'?'CHARACTERS':currentLang==='pt'?'PERSONAGENS':currentLang==='jp'?'キャラクター':'PERSONAJES', 80, y);
+  ctx.fillText(currentLang==='en'?'STYLE':currentLang==='pt'?'ESTILO':currentLang==='jp'?'スタイル':'ESTILO', 350, y);
+  ctx.fillText(currentLang==='en'?'DURATION':currentLang==='pt'?'DURAÇÃO':currentLang==='jp'?'時間':'DURACIÓN', 620, y);
+  y += 32;
+  ctx.font = '22px Inter, sans-serif';
+  ctx.fillStyle = '#fff';
+  ctx.fillText(chars, 80, y);
+  ctx.fillText(style, 350, y);
+  ctx.fillText(dur, 620, y);
+  y += 70;
+
+  // IDEA block (multiline wrap)
+  ctx.font = '12px "JetBrains Mono", monospace';
+  ctx.fillStyle = 'rgba(255,255,255,0.55)';
+  ctx.fillText(currentLang==='en'?'IDEA':currentLang==='pt'?'IDEIA':currentLang==='jp'?'アイデア':'IDEA', 80, y);
+  y += 28;
+
+  // Word-wrap idea
+  ctx.font = '20px Inter, sans-serif';
+  ctx.fillStyle = '#fff';
+  const words = idea.split(/\s+/);
+  const maxW = W - 160;
+  let line = '';
+  for (let i = 0; i < words.length; i++) {
+    const test = line + words[i] + ' ';
+    if (ctx.measureText(test).width > maxW && line) {
+      ctx.fillText(line.trim(), 80, y);
+      y += 30;
+      line = words[i] + ' ';
+      if (y > H - 220) { ctx.fillText('...', 80, y); break; }
+    } else {
+      line = test;
+    }
+  }
+  if (line && y <= H - 220) ctx.fillText(line.trim(), 80, y);
+
+  // Discount badge (if won)
+  if (won) {
+    ctx.fillStyle = '#fbbf24';
+    ctx.fillRect(80, H - 200, 280, 60);
+    ctx.fillStyle = '#1a0a2e';
+    ctx.font = 'bold 18px "Press Start 2P", monospace';
+    ctx.textAlign = 'center';
+    ctx.fillText('⭐ 15% OFF', 80 + 140, H - 162);
+  }
+
+  // Watermark — @cyberwacho diagonally repeated (subtle)
+  ctx.save();
+  ctx.translate(W / 2, H / 2);
+  ctx.rotate(-Math.PI / 6);
+  ctx.font = 'bold 60px Inter, sans-serif';
+  ctx.textAlign = 'center';
+  ctx.fillStyle = 'rgba(255,255,255,0.05)';
+  for (let row = -2; row <= 2; row++) {
+    for (let col = -2; col <= 2; col++) {
+      ctx.fillText('@cyberwacho', col * 320, row * 120);
+    }
+  }
+  ctx.restore();
+
+  // Bottom watermark — visible @cyberwacho with bolder style
+  ctx.textAlign = 'center';
+  ctx.font = 'bold 22px Inter, sans-serif';
+  ctx.fillStyle = 'rgba(255,255,255,0.85)';
+  ctx.fillText('@cyberwacho', W / 2, H - 80);
+  ctx.font = '11px "JetBrains Mono", monospace';
+  ctx.fillStyle = 'rgba(255,255,255,0.45)';
+  ctx.fillText('cyberwacho.com  ·  3D · Animation · VFX', W / 2, H - 58);
+
+  // Show image
+  const dataURL = canvas.toDataURL('image/png');
+  const ticketImg = document.getElementById('ticketImage');
+  ticketImg.src = dataURL;
+  document.getElementById('ticketPreview').style.display = 'block';
+
+  // Enable send button
+  const sendBtn = document.getElementById('sendBtn');
+  sendBtn.disabled = false;
+  sendBtn.style.opacity = '1';
+  sendBtn.style.cursor = 'pointer';
+  ticketReady = true;
+
+  // Try to copy now (works on desktop). On mobile this often needs a direct
+  // tap, so sendTicket() copies again inside the button's click handler.
+  copyTicketText();
+
+  // Play completion sound
+  playSound('ticket');
+
+  // Smooth scroll into view
+  setTimeout(() => document.getElementById('ticketPreview').scrollIntoView({ behavior: 'smooth', block: 'center' }), 100);
+}
+
+/* Robust clipboard copy — works on desktop and mobile.
+   Uses the modern API, falls back to a hidden textarea + execCommand. */
+function copyTicketText(){
+  const text = ticketTextCache;
+  if (!text) return Promise.resolve(false);
+
+  // Modern API
+  if (navigator.clipboard && navigator.clipboard.writeText) {
+    return navigator.clipboard.writeText(text)
+      .then(() => true)
+      .catch(() => legacyCopy(text));
+  }
+  return Promise.resolve(legacyCopy(text));
+}
+function legacyCopy(text){
+  try {
+    const ta = document.createElement('textarea');
+    ta.value = text;
+    ta.setAttribute('readonly', '');
+    ta.style.position = 'fixed';
+    ta.style.top = '0';
+    ta.style.left = '0';
+    ta.style.opacity = '0';
+    document.body.appendChild(ta);
+    ta.focus();
+    ta.select();
+    ta.setSelectionRange(0, text.length); // iOS needs explicit range
+    const ok = document.execCommand('copy');
+    document.body.removeChild(ta);
+    return ok;
+  } catch(e){ return false; }
+}
+
+function sendTicket(){
+  if (!ticketReady) { generateTicket(); return; }
+
+  // Copy again here — this runs inside a real user tap, so mobile browsers allow it
+  Promise.resolve(copyTicketText()).then((copied) => {
+    // Confirmation message
+    const msgEl = document.getElementById('ticketCopiedMsg');
+    if (msgEl) {
+      msgEl.innerHTML = I18N[currentLang]['ticket.copiedConfirm'] || '✓ ¡Mensaje copiado! Abrí el chat y pegalo (mantené presionado → Pegar).';
+      msgEl.style.color = '#7ed957';
+    }
+    // Open Instagram DM
+    const ig = 'https://ig.me/m/cyberwacho';
+    window.open(ig, '_blank');
+  });
+}
+
+/* ============================================
+   8. Mini-game — "Super Cyberwacho Bros"
+   pixel art platformer, Mario Bros style.
+   reach the flag → 15% OFF.
+   ============================================ */
+const game = (function(){
+  const canvas = document.getElementById('gameCanvas');
+  const ctx = canvas.getContext('2d');
+  const W = 1280, H = 720;
+  const GROUND = H - 130;
+  const GRAVITY = 0.62;
+  const JUMP_FORCE = -16.5;
+  const PLAYER_SPEED = 5.4;
+
+  const PAL = {
+    sky1: '#87CEEB', sky2: '#b8e8ff',
+    ground: '#7ecf5a', groundDark: '#5bb33a',
+    brick: '#d97706', brickDark: '#b45309',
+    pipe: '#16a34a', pipeDark: '#14532d',
+    coin: '#fbbf24', coinGlow: '#fde68a',
+    player: '#6d28d9', playerAcc: '#22d3ee',
+    enemy: '#ef4444', enemyDark: '#b91c1c',
+    flag: '#f472b6', pole: '#94a3b8',
+    cloud: 'rgba(255,255,255,0.9)',
+    star: '#fbbf24',
+  };
+
+  let g = {};
+
+  function initGame() {
+    g = {
+      state: 'playing',
+      score: 0,
+      lives: 3,
+      camX: 0,
+      world: { width: 5200 },
+      player: {
+        x: 100, y: GROUND - 70,
+        w: 48, h: 68,
+        vx: 0, vy: 0,
+        onGround: false,
+        facing: 1,
+        jumpFrame: 0,
+        walkFrame: 0,
+        walkTimer: 0,
+        invincible: 0,
+      },
+      platforms: [],
+      enemies: [],
+      coins: [],
+      pipes: [],
+      particles: [],
+      flag: null,
+      bossPhase: false,
+      bossEnemies: [],
+      meteors: [],
+      keys: {},
+      touchLeft: false, touchRight: false, touchJump: false,
+      joyX: 0,
+      frameCount: 0,
+    };
+
+    const platforms = g.platforms;
+    const coins = g.coins;
+
+    // Ground — continuous floor
+    for(let x = 0; x < 5200; x += 120) {
+      platforms.push({x, y: GROUND, w: 120, h: 130, type: 'ground'});
+    }
+
+    // Floating platforms — wider and lower (easier to land on)
+    const plats = [
+      [420, GROUND-130, 280], [820, GROUND-180, 220],
+      [1180, GROUND-140, 240], [1540, GROUND-200, 200],
+      [1900, GROUND-150, 260], [2300, GROUND-210, 200],
+      [2680, GROUND-150, 240], [3060, GROUND-190, 220],
+      [3440, GROUND-150, 260], [3820, GROUND-200, 200],
+      [4180, GROUND-150, 260], [4520, GROUND-180, 240],
+    ];
+    plats.forEach(([x,y,w]) => platforms.push({x,y,w,h:32,type:'brick'}));
+
+    // Coins above platforms
+    [[480,GROUND-190],[900,GROUND-240],[1250,GROUND-200],[1600,GROUND-270],
+     [1980,GROUND-220],[2360,GROUND-280],[2740,GROUND-220],[3120,GROUND-260],
+     [3520,GROUND-220],[3880,GROUND-270],[4260,GROUND-220],[4580,GROUND-250]].forEach(([x,y]) => {
+      coins.push({x,y,w:30,h:30,collected:false,frame:0});
+    });
+
+    // Pipes — fewer, spaced out
+    [680, 1400, 2120, 2900, 3680, 4400].forEach((x) => {
+      g.pipes.push({x, y: GROUND-90, w: 80, h: 90});
+    });
+
+    // Enemies — fewer and slower (easier)
+    [600, 1100, 1700, 2400, 3100, 3900, 4600].forEach((x) => {
+      g.enemies.push({
+        x, y: GROUND-46, w: 46, h: 46,
+        vx: -0.9, alive: true, frame: 0, timer: 0, vy: 0,
+        type: 'goomba'
+      });
+    });
+
+    g.flag = { x: 5000, y: GROUND - 300, w: 20, h: 300 };
+    updateHud();
+  }
+
+  function updateHud(){
+    const s = document.getElementById('scoreDisplay');
+    const l = document.getElementById('livesDisplay');
+    if (s) s.textContent = `SCORE: ${g.score}`;
+    if (l) l.textContent = '☄';
+  }
+
+  function drawPixelPlayer(p) {
+    const px = Math.floor(p.x - g.camX);
+    const py = Math.floor(p.y);
+    if(p.invincible > 0 && Math.floor(p.invincible/4)%2===1) return;
+
+    // base sprite designed at 28x40 — scale up to fill p.w x p.h
+    const S = p.w / 28;
+
+    ctx.save();
+    ctx.translate(px, py);
+    if(p.facing < 0) {
+      ctx.scale(-1, 1);
+      ctx.translate(-p.w, 0);
+    }
+    ctx.scale(S, S);
+
+    // shadow
+    ctx.fillStyle = 'rgba(0,0,0,0.15)';
+    ctx.beginPath();
+    ctx.ellipse(14, 44, 14, 5, 0, 0, Math.PI*2);
+    ctx.fill();
+
+    // head
+    ctx.fillStyle = '#4c1d95';
+    ctx.fillRect(4, 0, 20, 14);
+    ctx.fillStyle = '#22d3ee';
+    ctx.shadowBlur = 8; ctx.shadowColor = '#22d3ee';
+    ctx.fillRect(6, 4, 6, 4);
+    ctx.fillRect(16, 4, 6, 4);
+    ctx.shadowBlur = 0;
+    ctx.strokeStyle = '#7c3aed'; ctx.lineWidth = 2;
+    ctx.strokeRect(2, 2, 24, 10);
+
+    // body
+    ctx.fillStyle = '#3730a3';
+    ctx.fillRect(2, 14, 24, 16);
+    ctx.fillStyle = '#4f46e5';
+    ctx.fillRect(6, 16, 5, 4);
+    ctx.fillRect(17, 16, 5, 4);
+
+    // legs
+    const legOff = p.onGround ? Math.sin(p.walkFrame * 0.4) * 4 : 0;
+    ctx.fillStyle = '#1e1b4b';
+    ctx.fillRect(4, 30, 8, 10 + Math.max(0, legOff));
+    ctx.fillRect(16, 30, 8, 10 - Math.min(0, legOff));
+
+    // arms
+    ctx.fillStyle = '#3730a3';
+    ctx.fillRect(-2, 15, 6, 10);
+    ctx.fillRect(24, 15, 6, 10);
+
+    ctx.restore();
+  }
+
+  function drawEnemy(e) {
+    if(!e.alive) return;
+    const ex = Math.floor(e.x - g.camX);
+    const ey = Math.floor(e.y);
+    const S = e.w / 28;  // base sprite at 28px
+
+    ctx.save();
+    ctx.translate(ex, ey);
+    ctx.scale(S, S);
+
+    ctx.fillStyle = '#ef4444';
+    ctx.fillRect(0, 0, 28, 28);
+    ctx.fillStyle = '#b91c1c';
+    ctx.fillRect(2, 0, 24, 8);
+    ctx.fillStyle = 'white';
+    ctx.fillRect(4, 8, 6, 6);
+    ctx.fillRect(16, 8, 6, 6);
+    ctx.fillStyle = 'black';
+    ctx.fillRect(6, 10, 3, 3);
+    ctx.fillRect(18, 10, 3, 3);
+    ctx.fillStyle = '#991b1b';
+    ctx.fillRect(3, 6, 8, 3);
+    ctx.fillRect(15, 6, 8, 3);
+    const footOff = Math.sin(e.frame * 0.3) * 3;
+    ctx.fillStyle = '#7f1d1d';
+    ctx.fillRect(1, 22, 10, 6 + footOff);
+    ctx.fillRect(15, 22, 10, 6 - footOff);
+
+    ctx.restore();
+  }
+
+  function drawPlatform(pl) {
+    const px = Math.floor(pl.x - g.camX);
+    if(px > W + 100 || px + pl.w < -100) return;
+
+    if(pl.type === 'ground') {
+      ctx.fillStyle = PAL.ground;
+      ctx.fillRect(px, pl.y, pl.w, pl.h);
+      ctx.fillStyle = PAL.groundDark;
+      ctx.fillRect(px, pl.y, pl.w, 8);
+      ctx.fillStyle = '#86efac';
+      for(let i=0; i<pl.w; i+=8) {
+        ctx.fillRect(px+i, pl.y-4, 4, 4);
+      }
+    } else {
+      ctx.fillStyle = PAL.brick;
+      ctx.fillRect(px, pl.y, pl.w, pl.h);
+      ctx.fillStyle = PAL.brickDark;
+      for(let bx=0; bx<pl.w; bx+=20) ctx.fillRect(px+bx, pl.y, 2, pl.h);
+      ctx.fillRect(px, pl.y, pl.w, 3);
+      ctx.fillRect(px, pl.y+pl.h-3, pl.w, 3);
+    }
+  }
+
+  function drawPipe(pipe) {
+    const px = Math.floor(pipe.x - g.camX);
+    if(px > W+50 || px < -100) return;
+    ctx.fillStyle = PAL.pipe;
+    ctx.fillRect(px, pipe.y, pipe.w, pipe.h);
+    ctx.fillStyle = PAL.pipeDark;
+    ctx.fillRect(px, pipe.y, pipe.w, 6);
+    ctx.fillRect(px, pipe.y, 6, pipe.h);
+    ctx.fillStyle = '#15803d';
+    ctx.fillRect(px-4, pipe.y, pipe.w+8, 14);
+    ctx.fillStyle = '#166534';
+    ctx.fillRect(px-4, pipe.y, pipe.w+8, 4);
+  }
+
+  function drawCoin(c) {
+    if(c.collected) return;
+    const cx = Math.floor(c.x - g.camX);
+    const cy = Math.floor(c.y + Math.sin(g.frameCount * 0.08 + c.x) * 4);
+
+    ctx.fillStyle = PAL.coin;
+    ctx.shadowBlur = 10; ctx.shadowColor = PAL.coinGlow;
+    ctx.beginPath();
+    ctx.arc(cx + c.w/2, cy + c.h/2, c.w/2, 0, Math.PI*2);
+    ctx.fill();
+    ctx.shadowBlur = 0;
+    ctx.fillStyle = '#fde68a';
+    ctx.beginPath();
+    ctx.arc(cx + c.w/2 - 2, cy + c.h/2 - 2, c.w/4, 0, Math.PI*2);
+    ctx.fill();
+  }
+
+  function drawFlag() {
+    const f = g.flag;
+    const fx = Math.floor(f.x - g.camX);
+
+    ctx.fillStyle = PAL.pole;
+    ctx.fillRect(fx, f.y, f.w, f.h);
+
+    // flag cloth
+    ctx.fillStyle = PAL.flag;
+    ctx.fillRect(fx + f.w, f.y, 70, 48);
+    ctx.fillStyle = '#f9a8d4';
+    ctx.fillRect(fx + f.w + 8, f.y + 8, 22, 14);
+
+    // base steps
+    for(let i=0; i<4; i++) {
+      ctx.fillStyle = '#94a3b8';
+      ctx.fillRect(fx + i*14 - 28, GROUND - i*20, f.w + 36, 20 + i*20);
+    }
+
+    // "META / GOAL" marker
+    ctx.fillStyle = '#fbbf24';
+    ctx.font = 'bold 16px "Press Start 2P", monospace';
+    ctx.textAlign = 'center';
+    ctx.fillText('META', fx + f.w, f.y - 20);
+    ctx.textAlign = 'left';
+  }
+
+  function drawBG() {
+    const grad = ctx.createLinearGradient(0,0,0,H);
+    grad.addColorStop(0, '#87CEEB');
+    grad.addColorStop(1, '#b8e8ff');
+    ctx.fillStyle = grad;
+    ctx.fillRect(0,0,W,H);
+
+    const cloudOffsets = [100, 450, 800, 1200, 1700, 2200, 2800, 3400, 4000, 4600];
+    cloudOffsets.forEach(cx => {
+      const px = ((cx - g.camX * 0.3) % (W + 400) + W + 400) % (W + 400) - 200;
+      ctx.fillStyle = 'rgba(255,255,255,0.9)';
+      ctx.beginPath();
+      ctx.arc(px + 70, 120, 52, 0, Math.PI*2);
+      ctx.arc(px + 120, 105, 42, 0, Math.PI*2);
+      ctx.arc(px + 35, 130, 38, 0, Math.PI*2);
+      ctx.fill();
+    });
+
+    ctx.fillStyle = 'rgba(134, 239, 172, 0.4)';
+    [0, 400, 900, 1500, 2200].forEach(ox => {
+      const hx = ((ox - g.camX * 0.5) % (W + 700) + W + 700) % (W + 700) - 350;
+      ctx.beginPath();
+      ctx.arc(hx, GROUND + 40, 160, 0, Math.PI*2);
+      ctx.fill();
+    });
+  }
+
+  function drawParticles() {
+    g.particles.forEach((p) => {
+      p.x += p.vx; p.y += p.vy; p.vy += 0.15;
+      p.life--;
+      const alpha = p.life / p.maxLife;
+      ctx.globalAlpha = alpha;
+      ctx.fillStyle = p.color;
+      ctx.fillRect(Math.floor(p.x - g.camX), Math.floor(p.y), p.s, p.s);
+      ctx.globalAlpha = 1;
+    });
+    g.particles = g.particles.filter(p => p.life > 0);
+  }
+
+  function spawnParticles(x, y, color) {
+    for(let i=0;i<8;i++) {
+      g.particles.push({
+        x, y,
+        vx: (Math.random()-0.5)*5,
+        vy: Math.random()*-6 - 2,
+        life: 30 + Math.random()*20,
+        maxLife: 50,
+        color, s: 4 + Math.random()*4
+      });
+    }
+  }
+
+  function updateGame() {
+    if(g.state !== 'playing') return;
+    const p = g.player;
+    g.frameCount++;
+
+    // Keyboard input
+    const kbLeft  = g.keys['ArrowLeft']  || g.keys['a'];
+    const kbRight = g.keys['ArrowRight'] || g.keys['d'];
+    const jump    = g.keys['ArrowUp'] || g.keys['w'] || g.keys[' '] || g.touchJump;
+
+    // Joystick gives an analog value -1..1; keyboard is digital
+    const joy = g.joyX || 0;
+    const DEADZONE = 0.18;
+
+    if (Math.abs(joy) > DEADZONE) {
+      // analog: speed scales with how far the stick is pushed
+      p.vx = joy * PLAYER_SPEED;
+      p.facing = joy < 0 ? -1 : 1;
+    } else if (kbLeft) {
+      p.vx = -PLAYER_SPEED; p.facing = -1;
+    } else if (kbRight) {
+      p.vx = PLAYER_SPEED; p.facing = 1;
+    } else {
+      p.vx *= 0.8;
+    }
+
+    if(jump && p.onGround) {
+      p.vy = JUMP_FORCE;
+      p.onGround = false;
+      p.jumpFrame = 1;
+      playSound('jump');
+    }
+
+    if(p.onGround && Math.abs(p.vx) > 0.5) {
+      p.walkTimer++;
+      if(p.walkTimer > 6) { p.walkFrame++; p.walkTimer = 0; }
+    }
+
+    p.vy += GRAVITY;
+    if(p.vy > 16) p.vy = 16;
+    p.x += p.vx;
+    p.y += p.vy;
+    if(p.jumpFrame > 0) p.jumpFrame++;
+    if(p.invincible > 0) p.invincible--;
+
+    if(p.x < 0) p.x = 0;
+    if(p.x > g.world.width - p.w) p.x = g.world.width - p.w;
+
+    p.onGround = false;
+    g.platforms.forEach(pl => {
+      if(p.x + p.w > pl.x && p.x < pl.x + pl.w &&
+         p.y + p.h > pl.y && p.y + p.h < pl.y + pl.h + 12 &&
+         p.vy >= 0) {
+        p.y = pl.y - p.h;
+        p.vy = 0;
+        p.onGround = true;
+        p.jumpFrame = 0;
+      }
+    });
+
+    g.pipes.forEach(pipe => {
+      if(p.x + p.w > pipe.x - 4 && p.x < pipe.x + pipe.w + 4 &&
+         p.y + p.h > pipe.y && p.y < pipe.y + pipe.h) {
+        if(p.vy >= 0 && p.y + p.h < pipe.y + 20) {
+          p.y = pipe.y - p.h;
+          p.vy = 0;
+          p.onGround = true;
+        } else {
+          if(p.x + p.w/2 < pipe.x + pipe.w/2) p.x = pipe.x - p.w;
+          else p.x = pipe.x + pipe.w;
+          p.vx = 0;
+        }
+      }
+    });
+
+    g.coins.forEach(c => {
+      if(!c.collected &&
+         p.x + p.w > c.x && p.x < c.x + c.w &&
+         p.y + p.h > c.y && p.y < c.y + c.h) {
+        c.collected = true;
+        g.score += 100;
+        spawnParticles(c.x, c.y, PAL.coin);
+        updateHud();
+      }
+    });
+
+    const targetCam = p.x - W/3;
+    g.camX += (targetCam - g.camX) * 0.12;
+    if(g.camX < 0) g.camX = 0;
+    if(g.camX > g.world.width - W) g.camX = g.world.width - W;
+
+    const allEnemies = [...g.enemies, ...g.bossEnemies];
+    for (const e of allEnemies) {
+      if(!e.alive) continue;
+      e.x += e.vx;
+      e.timer++;
+      e.frame++;
+
+      if(e.x < g.camX - 100 || e.x > g.camX + W + 100) continue;
+
+      let onG = false;
+      g.platforms.forEach(pl => {
+        if(e.x + e.w > pl.x && e.x < pl.x + pl.w &&
+           e.y + e.h >= pl.y && e.y + e.h < pl.y + 20) {
+          e.y = pl.y - e.h;
+          onG = true;
+        }
+      });
+      if(!onG) e.vy = (e.vy||0) + 0.4;
+      e.y += (e.vy||0);
+
+      if(e.x <= 0 || e.x >= g.world.width - e.w) e.vx *= -1;
+      g.pipes.forEach(pipe => {
+        if(e.x + e.w > pipe.x && e.x < pipe.x + pipe.w &&
+           e.y + e.h > pipe.y) e.vx *= -1;
+      });
+
+      // Stomp: player lands on top of enemy → kills it
+      if(p.invincible === 0 &&
+         p.x + p.w - 8 > e.x && p.x + 8 < e.x + e.w &&
+         p.y + p.h > e.y && p.y + p.h < e.y + e.h + 20 &&
+         p.vy > 0) {
+        e.alive = false;
+        p.vy = -10;
+        g.score += 200;
+        spawnParticles(e.x + e.w/2, e.y, PAL.enemy);
+        updateHud();
+        continue;
+      }
+
+      // Side hit: enemy touches player's body → death.
+      // Generous margins so only a real overlap counts.
+      const exMargin = e.w * 0.22;
+      const pxMargin = p.w * 0.22;
+      const overlapX = (p.x + p.w - pxMargin > e.x + exMargin) &&
+                       (p.x + pxMargin < e.x + e.w - exMargin);
+      const overlapY = (p.y + p.h - 6 > e.y + e.h * 0.25) &&
+                       (p.y + p.h * 0.30 < e.y + e.h);
+      if(p.invincible === 0 && overlapX && overlapY) {
+        playSound('die');
+        g.lives = 0;
+        g.state = 'dead';
+        setTimeout(showDead, 600);
+        break;
+      }
+    }
+
+    // Meteorite spawning — slower & less frequent (easier)
+    if(g.frameCount % 160 === 0 && g.frameCount > 120) {
+      // spawn ahead of player but with warning distance
+      const spawnX = p.x + 200 + (Math.random()*500);
+      g.meteors.push({
+        x: spawnX, y: -60,
+        w: 32 + Math.random()*20,
+        vy: 2.6 + Math.random()*1.4,
+        vx: (Math.random()-0.5)*1.0,
+        rot: 0,
+        trail: []
+      });
+    }
+
+    // Update meteors
+    g.meteors.forEach(m => {
+      m.x += m.vx;
+      m.y += m.vy;
+      m.rot += 0.15;
+      m.trail.push({x: m.x + m.w/2, y: m.y + m.w/2, life: 12});
+      if(m.trail.length > 8) m.trail.shift();
+      m.trail.forEach(t => t.life--);
+    });
+
+    // Remove meteors that already hit the ground or left the screen —
+    // do this BEFORE collision so a grounded meteor can't kill you.
+    g.meteors = g.meteors.filter(m => {
+      if (m.y + m.w/2 >= GROUND) {
+        spawnParticles(m.x + m.w/2, GROUND, '#f87171');
+        return false;
+      }
+      if (m.x < g.camX - 300 || m.x > g.camX + W + 300) return false;
+      return true;
+    });
+
+    // Meteor → player collision: circle-vs-rect, accurate.
+    // The meteor's visible body is a circle of radius ~m.w*0.4 centered
+    // at (m.x+m.w/2, m.y+m.w/2). We only kill on a real overlap.
+    for (const m of g.meteors) {
+      if (p.invincible !== 0) break;
+      const mcx = m.x + m.w/2;
+      const mcy = m.y + m.w/2;
+      const mr  = m.w * 0.34;               // forgiving: smaller than the sprite
+      // closest point on the player's rect to the meteor centre
+      const closestX = Math.max(p.x, Math.min(mcx, p.x + p.w));
+      const closestY = Math.max(p.y, Math.min(mcy, p.y + p.h));
+      const dx = mcx - closestX;
+      const dy = mcy - closestY;
+      if (dx*dx + dy*dy < mr*mr) {
+        playSound('die');
+        g.lives = 0;
+        g.state = 'dead';
+        setTimeout(showDead, 600);
+        break;
+      }
+    }
+
+    if(p.y > H + 80) {
+      // Fall off = instant death
+      playSound('die');
+      g.lives = 0;
+      g.state = 'dead';
+      setTimeout(showDead, 400);
+    }
+
+    const f = g.flag;
+    if(p.x + p.w > f.x - 20 && p.x < f.x + f.w + 40 && !g.bossPhase) {
+      g.bossPhase = true;
+      // Fewer boss enemies, slower (easier)
+      for(let i=0;i<5;i++) {
+        g.bossEnemies.push({
+          x: f.x + 80 + i * 70,
+          y: GROUND - 46,
+          w: 46, h: 46,
+          vx: -1.0 - Math.random()*0.6,
+          alive: true, frame: 0, timer: 0,
+          vy: 0,
+          type: 'boss'
+        });
+      }
+    }
+
+    if(p.x + p.w > f.x && p.x < f.x + f.w + 12 &&
+       p.y + p.h > f.y && g.bossPhase) {
+      const aliveCount = g.bossEnemies.filter(e=>e.alive).length;
+      if(aliveCount === 0 || Math.random() < 0.2) {
+        g.state = 'win';
+        setTimeout(showWin, 800);
+      } else {
+        p.x = f.x - 80;
+        p.vx = -3;
+      }
+    }
+  }
+
+  function drawMeteor(m) {
+    const mx = Math.floor(m.x);
+    const my = Math.floor(m.y);
+
+    // Trail (fire particles)
+    m.trail.forEach((t, i) => {
+      const alpha = t.life / 12;
+      ctx.globalAlpha = alpha * 0.8;
+      ctx.fillStyle = i % 2 === 0 ? '#fbbf24' : '#f87171';
+      ctx.fillRect(Math.floor(t.x - 3), Math.floor(t.y - 3), 6, 6);
+    });
+    ctx.globalAlpha = 1;
+
+    // Meteor body — rocky pixel chunk
+    ctx.save();
+    ctx.translate(mx + m.w/2, my + m.w/2);
+    ctx.rotate(m.rot);
+
+    // Glow
+    ctx.shadowBlur = 14;
+    ctx.shadowColor = '#f97316';
+
+    // Rock body
+    ctx.fillStyle = '#7c2d12';
+    ctx.fillRect(-m.w/2, -m.w/2, m.w, m.w);
+    ctx.fillStyle = '#9a3412';
+    ctx.fillRect(-m.w/2 + 3, -m.w/2 + 3, m.w - 6, m.w - 6);
+    ctx.fillStyle = '#c2410c';
+    ctx.fillRect(-m.w/2 + 5, -m.w/2 + 5, m.w/3, m.w/3);
+    // Hot spot
+    ctx.fillStyle = '#fbbf24';
+    ctx.fillRect(-m.w/4, -m.w/4, m.w/4, m.w/4);
+
+    ctx.shadowBlur = 0;
+    ctx.restore();
+  }
+
+  function renderGame() {
+    ctx.clearRect(0,0,W,H);
+    drawBG();
+    g.platforms.forEach(drawPlatform);
+    g.pipes.forEach(drawPipe);
+    drawFlag();
+    g.coins.forEach(drawCoin);
+    g.enemies.forEach(drawEnemy);
+    g.bossEnemies.forEach(drawEnemy);
+    if (g.meteors) g.meteors.forEach(drawMeteor);
+    drawParticles();
+    drawPixelPlayer(g.player);
+
+    if(g.bossPhase) {
+      const alive = g.bossEnemies.filter(e=>e.alive).length;
+      ctx.fillStyle = `rgba(239,68,68,${0.6 + Math.sin(g.frameCount*0.2)*0.4})`;
+      ctx.font = 'bold 11px "Press Start 2P", monospace';
+      ctx.textAlign = 'center';
+      ctx.fillText(`¡ENEMIGOS! ${alive} restantes`, W/2, 64);
+      ctx.textAlign = 'left';
+    }
+  }
+
+  function loop() {
+    if(g.state === 'playing') {
+      updateGame();
+      renderGame();
+    }
+    requestAnimationFrame(loop);
+  }
+
+  function start() {
+    document.getElementById('game-overlay').style.display = 'none';
+    initGame();
+  }
+
+  function showDead() {
+    const ov = document.getElementById('game-overlay');
+    ov.style.display = 'flex';
+    ov.innerHTML = `
+      <h2>💀 GAME OVER</h2>
+      <p style="color:#f472b6;font-family:var(--pixel);font-size:10px">SUERTE EN LA PRÓXIMA</p>
+      <button class="btn-pixel" onclick="game.start()">↩ REINTENTAR</button>
+    `;
+  }
+
+  function showWin() {
+    window.__wonGame = true;
+    playSound('win');
+    document.getElementById('win-overlay').classList.add('active');
+  }
+
+  // Keyboard — only when game is actively playing and focus is not on a form
+  document.addEventListener('keydown', e => {
+    const ae = document.activeElement;
+    if (ae && (ae.tagName === 'TEXTAREA' || ae.tagName === 'INPUT')) return;
+    if (g.keys !== undefined) g.keys[e.key] = true;
+    if (g.state === 'playing' && ['ArrowUp','ArrowDown','ArrowLeft','ArrowRight',' '].includes(e.key)) e.preventDefault();
+  });
+  document.addEventListener('keyup', e => {
+    if (g.keys !== undefined) g.keys[e.key] = false;
+  });
+
+  /* ---- Analog joystick (works with touch AND mouse) ---- */
+  (function initJoystick(){
+    const zone = document.getElementById('joystick-zone');
+    const knob = document.getElementById('joystick-knob');
+    if (!zone || !knob) return;
+
+    let active = false;
+    let pointerId = null;
+    const MAX = 44; // max knob travel in px
+
+    function setKnob(dx, dy){
+      const dist = Math.hypot(dx, dy);
+      if (dist > MAX) { dx = dx / dist * MAX; dy = dy / dist * MAX; }
+      knob.style.transform = `translate(${dx}px, ${dy}px)`;
+      // horizontal axis drives movement, normalized -1..1
+      g.joyX = dx / MAX;
+    }
+    function resetKnob(){
+      knob.style.transform = 'translate(0px, 0px)';
+      g.joyX = 0;
+    }
+    function getXY(e){
+      const rect = zone.getBoundingClientRect();
+      const cx = rect.left + rect.width / 2;
+      const cy = rect.top + rect.height / 2;
+      const pt = e.touches ? e.touches[0] : e;
+      return { dx: pt.clientX - cx, dy: pt.clientY - cy };
+    }
+
+    function start(e){
+      active = true;
+      const { dx, dy } = getXY(e);
+      setKnob(dx, dy);
+      e.preventDefault();
+    }
+    function move(e){
+      if (!active) return;
+      const { dx, dy } = getXY(e);
+      setKnob(dx, dy);
+      e.preventDefault();
+    }
+    function end(e){
+      active = false;
+      resetKnob();
+    }
+
+    // Touch
+    zone.addEventListener('touchstart', start, { passive: false });
+    zone.addEventListener('touchmove',  move,  { passive: false });
+    zone.addEventListener('touchend',   end);
+    zone.addEventListener('touchcancel',end);
+    // Mouse (desktop)
+    zone.addEventListener('mousedown', start);
+    window.addEventListener('mousemove', move);
+    window.addEventListener('mouseup', end);
+  })();
+
+  /* ---- Jump button (touch AND mouse) ---- */
+  (function initJumpBtn(){
+    const btn = document.getElementById('jump-btn');
+    if (!btn) return;
+    function press(e){ g.touchJump = true; btn.classList.add('pressed'); e.preventDefault(); }
+    function release(e){ g.touchJump = false; btn.classList.remove('pressed'); }
+    btn.addEventListener('touchstart', press, { passive: false });
+    btn.addEventListener('touchend',   release);
+    btn.addEventListener('touchcancel',release);
+    btn.addEventListener('mousedown',  press);
+    window.addEventListener('mouseup', release);
+  })();
+
+  // Initial idle render so the canvas doesn't look empty before "start"
+  g = { camX: 0, frameCount: 0, particles: [], joyX: 0 };
+  ctx.fillStyle = PAL.sky1; ctx.fillRect(0,0,W,H);
+  ctx.fillStyle = PAL.ground; ctx.fillRect(0,GROUND,W,H-GROUND);
+
+  // Start the render loop on demand
+  loop();
+
+  return { start };
+})();
+
+function closeWinOverlay(){
+  document.getElementById('win-overlay').classList.remove('active');
+  const ov = document.getElementById('game-overlay');
+  ov.style.display = 'flex';
+  ov.innerHTML = `
+    <h2 style="color:#fbbf24">⭐ ¡GANASTE!</h2>
+    <p style="color:#86efac;font-family:var(--pixel);font-size:9px">15% OFF DESBLOQUEADO<br><br>Usalo en el formulario de abajo</p>
+    <button class="btn-pixel" onclick="game.start()">↩ JUGAR DE NUEVO</button>
+  `;
+}
+
+</script>
+</body>
+</html>
